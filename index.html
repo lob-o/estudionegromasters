@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESTUDIONEGRO MASTERS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo+Black&family=Unbounded:wght@900&family=DM+Mono:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:100%; height:100%; background:#fff; overflow:hidden; }
+
+    /* ── font switcher ── */
+    .ftabs {
+      position:fixed; top:0; right:0; z-index:100;
+      display:flex;
+      border-left:1px solid #000;
+      border-bottom:1px solid #000;
+    }
+    .ftab {
+      padding:5px 14px;
+      font-family:'DM Mono',monospace; font-weight:300;
+      font-size:0.48rem; letter-spacing:0.28em;
+      border:none; border-left:0.5px solid #ddd;
+      background:#fff; cursor:pointer;
+      color:#ccc; transition:color 0.15s;
+    }
+    .ftab:first-child { border-left:none; }
+    .ftab.on { color:#000; background:#f2f2f2; }
+
+    /* ── layout ── */
+    .page {
+      position:fixed; inset:0;
+      display:flex; flex-direction:column;
+      padding:18px 26px 16px;
+      gap:10px;
+    }
+
+    /* ── title ── */
+    .title { flex-shrink:0; overflow:hidden; }
+    .t1, .t2 { display:block; line-height:0.87; color:#000; }
+
+    /* Bebas — condensed by nature */
+    .fa .t1, .fa .t2 {
+      font-family:'Bebas Neue',Impact,sans-serif;
+      font-size:clamp(2.8rem,13vw,10rem);
+      letter-spacing:0.025em;
+    }
+    /* Archivo Black — medium wide */
+    .fb .t1, .fb .t2 {
+      font-family:'Archivo Black',Impact,sans-serif;
+      font-size:clamp(2.2rem,10vw,8rem);
+      letter-spacing:0.01em;
+    }
+    /* Unbounded — wide */
+    .fc .t1, .fc .t2 {
+      font-family:'Unbounded',Impact,sans-serif;
+      font-size:clamp(1.6rem,7.5vw,6rem);
+      letter-spacing:0em;
+    }
+    /* Helvetica — natural proportions, minimal scaleX */
+    .fd .t1, .fd .t2 {
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      font-weight:900;
+      font-size:clamp(2.5rem,11.5vw,9rem);
+      letter-spacing:-0.02em;
+      transform:scaleX(0.96);
+      transform-origin:left center;
+    }
+
+    .rule      { flex-shrink:0; width:100%; height:2px; background:#000; }
+    .rule-thin { flex-shrink:0; width:100%; height:1px; background:#000; }
+
+    /* ── dot panel ── */
+    .dot-wrap { flex:1; min-height:0; background:#000; overflow:hidden; }
+    canvas    { display:block; }
+
+    /* ── footer ── */
+    .footer {
+      flex-shrink:0;
+      display:flex; align-items:baseline; justify-content:space-between;
+    }
+    .nav { display:flex; gap:1.8vw; }
+    .nav a { color:#000; text-decoration:none; transition:opacity 0.15s; }
+    .nav a:hover { opacity:0.28; }
+
+    .fa .nav a { font-family:'Bebas Neue',Impact,sans-serif;  font-size:clamp(1.8rem,4.8vw,4rem);  letter-spacing:0.025em; }
+    .fb .nav a { font-family:'Archivo Black',Impact,sans-serif; font-size:clamp(1.4rem,3.6vw,3rem);  letter-spacing:0.01em; }
+    .fc .nav a { font-family:'Unbounded',Impact,sans-serif;     font-size:clamp(1rem,2.8vw,2.4rem);  letter-spacing:0em; }
+    .fd .nav a {
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      font-weight:900;
+      font-size:clamp(1.8rem,4.5vw,3.8rem);
+      letter-spacing:-0.02em;
+      display:inline-block;
+      transform:scaleX(0.96);
+      transform-origin:left center;
+    }
+
+    .meta {
+      font-family:'DM Mono',monospace; font-weight:300;
+      font-size:0.58rem; letter-spacing:0.38em; color:#999;
+      align-self:center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="ftabs">
+  <button class="ftab"    onclick="setFont('a',this)">BEBAS</button>
+  <button class="ftab"    onclick="setFont('b',this)">ARCHIVO</button>
+  <button class="ftab"    onclick="setFont('c',this)">UNBOUNDED</button>
+  <button class="ftab on" onclick="setFont('d',this)">HELVETICA</button>
+</div>
+
+<div class="page fd" id="page">
+
+  <div class="title">
+    <span class="t1">ESTUDIONEGRO</span>
+    <span class="t2">MASTERS</span>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="dot-wrap" id="dot-wrap">
+    <canvas id="dots"></canvas>
+  </div>
+
+  <div class="rule-thin"></div>
+
+  <div class="footer">
+    <nav class="nav">
+      <a href="#">ARCHIVO</a>
+      <a href="#">CONTACTO</a>
+    </nav>
+  </div>
+
+</div>
+
+<script>
+function setFont(f, el) {
+  document.getElementById('page').className = 'page f' + f;
+  document.querySelectorAll('.ftab').forEach(function(t){ t.classList.remove('on'); });
+  el.classList.add('on');
+}
+
+// ── counter ──────────────────────────────────────────────────────────────
+var SONGS_PER_MS = 100000 / 86400000;
+var DAY_START    = (function(){ var d = new Date(); d.setHours(0,0,0,0); return d.getTime(); })();
+
+function songsToday() { return Math.min(100000, Math.floor((Date.now() - DAY_START) * SONGS_PER_MS)); }
+function fmtNum(n)    { return n.toLocaleString(); }
+
+function fmtTime() {
+  var d = new Date(), h = d.getHours(), m = d.getMinutes(), s = d.getSeconds();
+  var ap = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return h + '.' + (m < 10 ? '0'+m : m) + '.' + (s < 10 ? '0'+s : s) + ' ' + ap;
+}
+function fmtDate() {
+  var d = new Date();
+  var dd = d.getDate() < 10 ? '0'+d.getDate() : ''+d.getDate();
+  var mm = (d.getMonth()+1) < 10 ? '0'+(d.getMonth()+1) : ''+(d.getMonth()+1);
+  return dd + ' ' + mm + ' ' + d.getFullYear();
+}
+
+// ── dot grid — pixel-perfect uniform integer grid ─────────────────────────
+var CELL = 3; // cell size in px (integer = perfectly uniform)
+var DOT  = 2; // dot size in px (1px gap between dots)
+
+var cv   = document.getElementById('dots');
+var cx   = cv.getContext('2d');
+var wrap = document.getElementById('dot-wrap');
+
+var G = null, BASE = null, lastN = -1, lastSec = -1;
+var TEXT_H = 62;
+
+function setup() {
+  var W = wrap.clientWidth, H = wrap.clientHeight;
+  if (!W || !H) return;
+  cv.width = W; cv.height = H;
+
+  var DH   = H - TEXT_H;
+  var cols = Math.floor(W  / CELL);
+  var rows = Math.floor(DH / CELL);
+  var tot  = cols * rows;
+
+  // Pre-render: perfectly uniform dim dot grid
+  var buf = new Uint8ClampedArray(W * H * 4);
+  for (var i = 3; i < buf.length; i += 4) buf[i] = 255; // alpha
+
+  for (var row = 0; row < rows; row++) {
+    for (var col = 0; col < cols; col++) {
+      var x0 = col * CELL, y0 = row * CELL;
+      for (var dy = 0; dy < DOT; dy++) {
+        for (var dx = 0; dx < DOT; dx++) {
+          var pi = ((y0 + dy) * W + (x0 + dx)) * 4;
+          buf[pi] = buf[pi+1] = buf[pi+2] = 28; // dim gray
+        }
+      }
+    }
+  }
+
+  G    = { rows:rows, cols:cols, total:tot, W:W, H:H, DH:DH };
+  BASE = buf;
+  lastN = lastSec = -1;
+}
+
+function render(n) {
+  if (!G || !BASE) return;
+  var g = G, W = g.W, H = g.H, DH = g.DH;
+
+  var data   = new Uint8ClampedArray(BASE);
+  var filled = Math.round(n / 100000 * g.total); // scale to actual dot count
+
+  for (var idx = 0; idx < filled && idx < g.total; idx++) {
+    var row = Math.floor(idx / g.cols), col = idx % g.cols;
+    var x0  = col * CELL, y0 = row * CELL;
+    for (var dy = 0; dy < DOT; dy++) {
+      for (var dx = 0; dx < DOT; dx++) {
+        var pi = ((y0 + dy) * W + (x0 + dx)) * 4;
+        data[pi] = data[pi+1] = data[pi+2] = 255; // white
+      }
+    }
+  }
+
+  cx.putImageData(new ImageData(data, W, H), 0, 0);
+
+  // ── stats strip ──────────────────────────────────────────────────────
+  var pad = 16;
+  cx.textBaseline = 'alphabetic';
+
+  cx.fillStyle = '#222';
+  cx.fillRect(0, DH, W, 1); // separator line
+
+  // Red label
+  cx.font = '600 13px "Helvetica Neue", Helvetica, Arial, sans-serif';
+  cx.fillStyle = '#e63030';
+  cx.textAlign = 'left';
+  cx.fillText('LANZAMIENTOS GLOBALES HOY', pad, DH + 22);
+
+  // White value line — count LEFT, time + date RIGHT — same baseline
+  cx.font = '700 24px "Helvetica Neue", Helvetica, Arial, sans-serif';
+  cx.fillStyle = '#ffffff';
+
+  cx.textAlign = 'left';
+  cx.fillText(fmtNum(n) + ' \u25AA', pad, DH + 50);
+
+  cx.textAlign = 'right';
+  cx.font = '400 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+  cx.fillStyle = '#555';
+  cx.fillText(fmtTime() + '    ' + fmtDate(), W - pad, DH + 50);
+
+  cx.textAlign = 'left';
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+  var n = songsToday(), s = new Date().getSeconds();
+  if (n !== lastN || s !== lastSec) { render(n); lastN = n; lastSec = s; }
+}
+
+setup();
+try { new ResizeObserver(setup).observe(wrap); } catch(e) { window.addEventListener('resize', setup); }
+requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>
