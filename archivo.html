@@ -9,9 +9,9 @@
     html { background:#fff; color:#000; }
     body {
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
-      padding:18px 26px 60px;
-      max-width:900px;
+      padding:16px 16px 60px;
     }
+    @media(min-width:600px){ body { padding:18px 26px 60px; } }
 
     /* ── top bar ── */
     .topbar {
@@ -19,11 +19,10 @@
       justify-content:space-between;
       padding-bottom:12px;
       border-bottom:2px solid #000;
-      margin-bottom:0;
     }
     .back {
       font-weight:900;
-      font-size:clamp(1.4rem,3.2vw,2.4rem);
+      font-size:clamp(1.2rem,4vw,2.2rem);
       letter-spacing:-0.02em;
       color:#000; text-decoration:none;
       display:inline-block;
@@ -33,7 +32,7 @@
     .back:hover { opacity:0.4; }
     .page-title {
       font-weight:900;
-      font-size:clamp(1.4rem,3.2vw,2.4rem);
+      font-size:clamp(1.2rem,4vw,2.2rem);
       letter-spacing:-0.02em;
       display:inline-block;
       transform:scaleX(0.96);
@@ -42,84 +41,37 @@
 
     /* ── year filter ── */
     .filter {
-      display:flex; flex-wrap:wrap;
+      display:flex;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
       border-bottom:1px solid #000;
+      scrollbar-width:none;
     }
+    .filter::-webkit-scrollbar { display:none; }
     .yr-btn {
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
       font-weight:700;
       font-size:0.6rem;
       letter-spacing:0.1em;
-      padding:7px 11px;
+      padding:8px 12px;
+      white-space:nowrap;
+      flex-shrink:0;
       border:none; border-right:0.5px solid #e0e0e0;
       background:transparent; cursor:pointer;
       color:#bbb; transition:color 0.15s;
     }
-    .yr-btn:last-child { border-right:none; }
     .yr-btn.on { color:#000; }
-    .yr-btn:hover { color:#555; }
+    .yr-btn:active { color:#000; }
 
-    /* ── entries ── */
-    .entry {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:20px 0;
-      border-bottom:0.5px solid #e8e8e8;
-      gap:24px;
-    }
-    .entry:hover { background:#fafafa; margin:0 -8px; padding-left:8px; padding-right:8px; }
-
-    .e-info { flex:1; min-width:0; }
-
-    .e-artist {
-      font-weight:700;
-      font-size:clamp(0.95rem,1.8vw,1.15rem);
-      letter-spacing:-0.01em;
-      line-height:1.2;
-      margin-bottom:5px;
-    }
-    .e-track {
-      font-weight:400;
-      font-size:clamp(0.8rem,1.4vw,0.95rem);
-      color:#666;
-      line-height:1.4;
-    }
-    .e-year {
-      font-weight:400;
-      font-size:0.75rem;
-      color:#bbb;
-      margin-top:3px;
-      letter-spacing:0.05em;
-    }
-
-    /* ── cover ── */
-    .e-cover {
-      flex:0 0 72px;
-      width:72px; height:72px;
-      background:#111;
-      position:relative;
-      overflow:hidden;
-    }
-    .e-cover img {
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      opacity:0;
-      transition:opacity 0.4s ease;
-    }
-    .e-cover img.loaded { opacity:1; }
-    .e-cover.no-art { background:#1a1a1a; }
-
-    /* year section header */
+    /* ── year header ── */
     .yr-header {
-      padding:28px 0 12px;
-      display:flex; align-items:baseline; gap:14px;
+      padding:24px 0 10px;
+      display:flex; align-items:baseline; gap:12px;
       border-bottom:1px solid #000;
     }
     .yr-label {
       font-weight:900;
-      font-size:clamp(2rem,5vw,3.2rem);
+      font-size:clamp(1.8rem,6vw,3rem);
       letter-spacing:-0.02em;
       line-height:1;
       display:inline-block;
@@ -128,8 +80,55 @@
     }
     .yr-count {
       font-size:0.58rem;
-      letter-spacing:0.2em;
+      letter-spacing:0.18em;
       color:#aaa;
+      font-weight:400;
+    }
+
+    /* ── entry ── */
+    .entry {
+      display:flex;
+      align-items:center;
+      padding:14px 0;
+      border-bottom:0.5px solid #e8e8e8;
+      gap:12px;
+    }
+
+    .e-cover {
+      flex:0 0 clamp(72px,18vw,90px);
+      width:clamp(72px,18vw,90px);
+      height:clamp(72px,18vw,90px);
+      background:#111;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+    .e-cover img {
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      transition:opacity 0.3s;
+    }
+
+    .e-info { flex:1; min-width:0; }
+
+    .e-artist {
+      font-weight:700;
+      font-size:clamp(0.9rem,2.8vw,1.05rem);
+      letter-spacing:-0.01em;
+      line-height:1.25;
+      margin-bottom:3px;
+    }
+    .e-track {
+      font-weight:400;
+      font-size:clamp(0.82rem,2.4vw,0.95rem);
+      color:#555;
+      line-height:1.35;
+      margin-bottom:4px;
+    }
+    .e-meta {
+      font-size:0.62rem;
+      color:#bbb;
+      letter-spacing:0.03em;
       font-weight:400;
     }
 
@@ -137,15 +136,16 @@
 
     /* ── footer ── */
     .foot {
-      margin-top:48px;
+      margin-top:40px;
       padding-top:12px;
       border-top:2px solid #000;
       display:flex; justify-content:space-between; align-items:baseline;
+      flex-wrap:wrap; gap:8px;
     }
-    .foot-nav { display:flex; gap:2vw; }
+    .foot-nav { display:flex; gap:3vw; }
     .foot-nav a {
       font-weight:900;
-      font-size:clamp(1.5rem,3.5vw,2.8rem);
+      font-size:clamp(1.4rem,4.5vw,3rem);
       letter-spacing:-0.02em;
       color:#000; text-decoration:none;
       display:inline-block;
@@ -155,9 +155,8 @@
     .foot-nav a:hover { opacity:0.3; }
     .foot-info {
       font-size:0.58rem;
-      letter-spacing:0.25em;
+      letter-spacing:0.2em;
       color:#bbb;
-      font-weight:400;
       align-self:center;
     }
   </style>
@@ -177,19 +176,22 @@
     <a href="index.html">INICIO</a>
     <a href="#">CONTACTO</a>
   </nav>
-  <span class="foot-info">181 MASTERIZACIONES · 2009—2024</span>
+  <span class="foot-info">112 MASTERIZACIONES · 2020—2026</span>
 </div>
 
 <script>
-var DATA = [{"a":"Adri Stuven","t":"Azul (de mar)","y":2024},{"a":"Composesiones","t":"Pedropiedra","y":2024},{"a":"Emilia Borlone","t":"Solita yo","y":2024},{"a":"Fil Uno","t":"Suite Nipples","y":2024},{"a":"Francisca Valenzuela, Daniela Spalla","t":"Quiéreme O Ándate","y":2024},{"a":"Fransico Victoria, AKRIILA","t":"Te quiero tanto","y":2024},{"a":"Fármacos","t":"Cuarto","y":2024},{"a":"HAKANNA, lolosuelto","t":"na de na","y":2024},{"a":"Lab/Workshop","t":"Cristián Heyne","y":2024},{"a":"Lucas Piraino","t":"Se está gastando","y":2024},{"a":"Max Valdés","t":"TAMBIÉN HAY DIOS EN EL DOLOR","y":2024},{"a":"Pedropiedra","t":"Tótem","y":2024},{"a":"Poder Fantasma","t":"NO DEJO DE PENSAR EN TI","y":2024},{"a":"Poder Fantasma","t":"AMOR EVITATIVO","y":2024},{"a":"PUERTO DOMINGO","t":"STOP","y":2024},{"a":"PUERTO DOMINGO","t":"Aki","y":2024},{"a":"PUERTO DOMINGO feat. pau","t":"6delamañana","y":2024},{"a":"Quién es Gerónimo","t":"Mi casa","y":2024},{"a":"Taller de mezcla y producción","t":"Fernando Herrera Bastidas","y":2024},{"a":"We Are The Grand","t":"Corazón Negro","y":2024},{"a":"Cancamusa","t":"Amor Minimal","y":2023},{"a":"Flangr, Shirel","t":"Lejos","y":2023},{"a":"Francisca Valenzuela","t":"Adentro","y":2023},{"a":"Los Tristes","t":"Fantasmas","y":2023},{"a":"Marineros","t":"Al calor de un sol que acaba de morir","y":2023},{"a":"nubes","t":"En un Futuro Lo Efímero No Se Quedará a la Mitad","y":2023},{"a":"Onyx IV","t":"Akriila","y":2023},{"a":"Pablo Rojas","t":"Un Pedacito","y":2023},{"a":"Paolo Agamio","t":"La Perfecta","y":2023},{"a":"pau","t":"volumen dos","y":2023},{"a":"PUERTO DOMINGO","t":"Octubre sin ti","y":2023},{"a":"PUERTO DOMINGO","t":"Paciencia eterna","y":2023},{"a":"PUERTO DOMINGO","t":"3","y":2023},{"a":"Solar","t":"Los Bailes","y":2023},{"a":"Solar","t":"Acuerdo","y":2023},{"a":"Solar","t":"Atajo del Tiempo","y":2023},{"a":"Vicenta con Cabiria","t":"correr","y":2023},{"a":"Lucas Piraino","t":"Cinco minutos","y":2022},{"a":"MOVEDIZA","t":"Fracturas","y":2022},{"a":"Nicole","t":"Claroscuro","y":2022},{"a":"Paco Miranda","t":"Al borde del abismo","y":2022},{"a":"Pedropiedra","t":"Estado Vegetal","y":2022},{"a":"Pedropiedra feat. Cancamusa","t":"Noches Perdidas","y":2022},{"a":"Shirel","t":"Cristal","y":2022},{"a":"Shirel","t":"TYF","y":2022},{"a":"Shirel","t":"Romper platos","y":2022},{"a":"Tololo","t":"Carrusel","y":2022},{"a":"Tololo","t":"Lágrimas","y":2022},{"a":"Tormenta","t":"Te lloraría una tarde","y":2022},{"a":"Yorka","t":"Chao","y":2022},{"a":"Yorka","t":"La torpeza","y":2022},{"a":"Begoña Ortúzar","t":"Rayo Verde","y":2021},{"a":"Belencha","t":"Belencha","y":2021},{"a":"Belencha","t":"Belencha en MAVI","y":2021},{"a":"Belencha y Camila Moreno","t":"Petronila","y":2021},{"a":"Camila Moreno","t":"Rey","y":2021},{"a":"Camila Moreno","t":"Hice a mi amor llorar","y":2021},{"a":"Camila Moreno con Ximena Sariñana y Lido Pimienta","t":"Déjame","y":2021},{"a":"Cancamusa","t":"Sin miedo a la profundidad","y":2021},{"a":"Daniel Guerrero","t":"Gol de Caszely","y":2021},{"a":"Fármacos","t":"Manual de una pérdida (Álbum)","y":2021},{"a":"Fármacos","t":"Humedad","y":2021},{"a":"Gepe","t":"FE, (un poco + de) FE","y":2021},{"a":"Kings of Convenience","t":"Peace or Love","y":2021},{"a":"Los Tristes","t":"En los cerros","y":2021},{"a":"Los Tristes","t":"Sabes","y":2021},{"a":"MOVEDIZA","t":"Espantar","y":2021},{"a":"Nocheósfera","t":"Harakiri","y":2021},{"a":"Pedropiedra","t":"Sonámbulo","y":2021},{"a":"Shirel","t":"Papi no me hagas llorar","y":2021},{"a":"Shirel y Polimá Westcoast","t":"Money (Remix)","y":2021},{"a":"Tololo","t":"San Felipe","y":2021},{"a":"Yorka","t":"Enloquecer","y":2021},{"a":"Yorka y Nicole","t":"Mentí (Acústica)","y":2021},{"a":"Yorka, Lido Pimienta y Gepe","t":"Viento","y":2021},{"a":"Belencha","t":"Pajarillo","y":2020},{"a":"Belencha","t":"Un poquito de tu amor","y":2020},{"a":"Camila Moreno","t":"Es real","y":2020},{"a":"Camila Moreno y Guaynaa","t":"Esta electricidad (Es Real)","y":2020},{"a":"Cancamusa","t":"Lo inevitable","y":2020},{"a":"Cancamusa","t":"Late","y":2020},{"a":"Cancamusa feat. Vanessa Zamora","t":"Venus (Remix)","y":2020},{"a":"Fármacos","t":"Cuando hablo de ti","y":2020},{"a":"Fármacos","t":"Manual de una Pérdida","y":2020},{"a":"Fármacos","t":"Tú detrás de todo","y":2020},{"a":"Gepe","t":"ULYSE","y":2020},{"a":"Gepe","t":"Buena memoria","y":2020},{"a":"Gepe y Princesa Alba","t":"tupenaesmipena","y":2020},{"a":"Lucas Piraino","t":"Te lloro","y":2020},{"a":"Marineros","t":"Todo a la vez","y":2020},{"a":"MOVEDIZA","t":"Y qué","y":2020},{"a":"MOVEDIZA","t":"Este puente se va a caer","y":2020},{"a":"MOVEDIZA","t":"Un temporal","y":2020},{"a":"Nocheósfera","t":"Dorama toxic","y":2020},{"a":"Onyx III","t":"Ethereal","y":2020},{"a":"Pedropiedra","t":"Aló (Álbum)","y":2020},{"a":"Shirel","t":"Money","y":2020},{"a":"Shirel","t":"Sola","y":2020},{"a":"Shirel","t":"Dímelo","y":2020},{"a":"Shirel","t":"Duele","y":2020},{"a":"Shogun","t":"Primavera","y":2020},{"a":"Shogun","t":"Pai de limón","y":2020},{"a":"Spíritu","t":"Sp_1","y":2020},{"a":"Yorka","t":"Mentí","y":2020},{"a":"André Ubilla ft. Colombina Parra","t":"Invierno","y":2019},{"a":"Camila Moreno","t":"Quememos el Reino","y":2019},{"a":"Estudionegro X","t":"","y":2019},{"a":"Fernando Milagros","t":"Tú","y":2019},{"a":"Fernando Milagros","t":"Serpiente","y":2019},{"a":"Fernando Milagros","t":"Serpiente (Álbum)","y":2019},{"a":"Fármacos","t":"Esperar","y":2019},{"a":"Fármacos","t":"Nuestro infierno","y":2019},{"a":"Marineros","t":"Ámbar","y":2019},{"a":"Milton James","t":"Pretemporada","y":2019},{"a":"Onyx II","t":"Fernando Milagros","y":2019},{"a":"Pedropiedra","t":"Amar en silencio","y":2019},{"a":"Pedropiedra","t":"Hipnotizada","y":2019},{"a":"Pedropiedra","t":"Aló","y":2019},{"a":"Planeta No","t":"Raro","y":2019},{"a":"André Ubilla","t":"Derecho a Progresar","y":2018},{"a":"Begoña Ortúzar","t":"El Farsante","y":2018},{"a":"Gepe","t":"Folclor Imaginario","y":2018},{"a":"Indiependencia","t":"Indiependencia EP","y":2018},{"a":"Pedropiedra","t":"Perder Ganar","y":2018},{"a":"Planeta No","t":"Me voy pa mi casa","y":2018},{"a":"Playa Gótica","t":"Amigurumi","y":2018},{"a":"Ves Tal Vez","t":"Naturaleza","y":2018},{"a":"Gepe","t":"Ciencia Exacta","y":2017},{"a":"Molly Von Prolog","t":"Prolog","y":2017},{"a":"Tololo","t":"Pérdida Total","y":2017},{"a":"Tormenta","t":"Primera Parte","y":2017},{"a":"(Me llamo) Sebastián","t":"Las Polillas","y":2016},{"a":"Fernando Milagros","t":"Marcha de las cadenas","y":2016},{"a":"Marineros","t":"Torbellino","y":2016},{"a":"Me llamo Sebastián","t":"Hijos del peligro","y":2016},{"a":"NMC","t":"Pop de guitarras en Chile","y":2016},{"a":"Camila Moreno","t":"Mala Madre","y":2015},{"a":"Fármacos","t":"Belleza","y":2015},{"a":"Gepe","t":"Estilo Libre","y":2015},{"a":"Gepe","t":"Hambre","y":2015},{"a":"José Biggs","t":"Biggs","y":2015},{"a":"Marineros","t":"O Marineros","y":2015},{"a":"Fernando Milagros","t":"Nuevo Sol","y":2014},{"a":"Javiera Mena","t":"Otra Era","y":2014},{"a":"Marineros","t":"Oh Oh","y":2014},{"a":"Tourista","t":"Gato por liebre","y":2014},{"a":"Camila Moreno","t":"Te Quise","y":2013},{"a":"Colombina Parra","t":"Detrás del Vidrio","y":2013},{"a":"Danna Paola","t":"Agüita","y":2013},{"a":"Electrodomésticos","t":"Se Caiga El Cielo","y":2013},{"a":"Javiera Mena","t":"Espada","y":2013},{"a":"Javiera Mena","t":"Primeras Composiciones 2000-2003","y":2013},{"a":"Marineros","t":"Espero","y":2013},{"a":"Nicole","t":"Panal","y":2013},{"a":"Santa Fé","t":"Flash y Volcán","y":2013},{"a":"Camila Moreno","t":"Panal","y":2012},{"a":"Gepe","t":"GP","y":2012},{"a":"Joven y Alocada","t":"Javiera Mena","y":2012},{"a":"Alex Anwandter","t":"Rebeldes","y":2011},{"a":"Deborah de Corral","t":"Nunca o Una Eternidad","y":2011},{"a":"Fernando Milagros","t":"San Sebastián","y":2011},{"a":"Javiera Mena","t":"La vida no es Eterna, Tributo a Caifanes","y":2011},{"a":"Lara Pedrosa","t":"GLMDTA + Suave","y":2011},{"a":"Lillyput","t":"Lillyput","y":2011},{"a":"Tío Lucho","t":"Innombrable","y":2011},{"a":"Violeta Se Fue a Los Cielos","t":"","y":2011},{"a":"Christian Chávez","t":"En Dónde Estás (Remix)","y":2010},{"a":"Drama","t":"","y":2010},{"a":"Dénver","t":"Música, Gramática, Gimnasia","y":2010},{"a":"Gepe","t":"Audiovisión","y":2010},{"a":"Javiera Mena","t":"Mena","y":2010},{"a":"Nicole","t":"Té Para 3","y":2010},{"a":"Pánico","t":"La banda que buscó el sonido debajo","y":2010},{"a":"Velódromo","t":"","y":2010},{"a":"Chancho en Piedra","t":"Combo Show","y":2009},{"a":"El Blog de la Feña","t":"2a temporada","y":2009},{"a":"G6","t":"El Quinto Día","y":2009},{"a":"Gepe","t":"Las Piedras","y":2009},{"a":"Kudai","t":"Hoy Quiero (Version Pop)","y":2009},{"a":"Kudai. Morir de Amor (Remix)","t":"","y":2009},{"a":"Petro","t":"Nuestro Ritual","y":2009}];
+var DATA = [{"a":"Fármacos","t":"Me dices amigo","y":2026,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/ab67616d0000b2735d706a08f26afae8fb95bec6.jpeg"},{"a":"Paco Miranda, RENEE","t":"Despedida","y":2026,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/paco.webp"},{"a":"Camila Moreno","t":"La primera luz","y":2025,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/camila.webp"},{"a":"Glup!","t":"Una cuncuna","y":2025,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/glup.webp"},{"a":"Prehistöricos","t":"Telepatía","y":2025,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/prehistoricos.webp"},{"a":"Abducción","t":"Teletubi","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.23.35.jpg"},{"a":"Adri Stuven","t":"Azul (de mar)","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1-1.webp"},{"a":"Alessia","t":"eX","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-6.webp"},{"a":"Alessia","t":"FKU","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-2-1.webp"},{"a":"Camila Moreno","t":"Fuga","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Fuga.webp"},{"a":"Camila Moreno","t":"Vapor","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/vapor.webp"},{"a":"Emilia Borlone","t":"Solita Yo","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.19.25.jpg"},{"a":"Emilia Borlone","t":"Pasado Ideal","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.31.18.jpg"},{"a":"Fil Uno","t":"Pájaro Herido","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.29.50.jpg"},{"a":"Fil Uno","t":"Suite Nipples","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-4-1.webp"},{"a":"Francisco Victoria","t":"Herida (Deluxe)","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-9.webp"},{"a":"Fármacos","t":"Cuarto","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-5.webp"},{"a":"HAKANNA, lolosuelto","t":"na de na","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.32.35.jpg"},{"a":"lolosuelto","t":"fiesta de amistades","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-8.webp"},{"a":"Lucas Piraino","t":"Se está gastando","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-3-1.webp"},{"a":"Max Valdés","t":"Primavera","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1-3.webp"},{"a":"Monasterios","t":"Andrómeda","y":2024,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-21.57.56.jpg"},{"a":"Paco Miranda","t":"SOLAMENTE TÚ....","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb.webp"},{"a":"Paco Miranda","t":"LATIENDO ♡","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-5-1.webp"},{"a":"PUERTO DOMINGO","t":"3","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.22.24.jpg"},{"a":"PUERTO DOMINGO","t":"STOP","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.27.22.jpg"},{"a":"PUERTO DOMINGO","t":"Aki","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/PUERTO-DOMINGO-Aki-Caratula.jpg"},{"a":"PUERTO DOMINGO","t":"6delamañana feat. pau","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-6-1.webp"},{"a":"quediostesalve, NIKOKONT","t":"AGUA II","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-4.webp"},{"a":"Rulo, El Mulu","t":"Versión Errante","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-7.webp"},{"a":"Shirel","t":"Oxígeno","y":2024,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1-2.webp"},{"a":"Adri Stuven","t":"Amanecer","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.28.24.jpg"},{"a":"Amún","t":"Incógnita","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-36.jpg"},{"a":"Aural Trace","t":"Ai 'Tōru'","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/etanne.jpg"},{"a":"Bastti","t":"Amor de verano","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-44.jpg"},{"a":"Bastti","t":"Estrellas","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-49.jpg"},{"a":"Bastti, FAVIO","t":"FRÁGIL","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.30.36.jpg"},{"a":"Christianes","t":"Ultrasol (Remasterizado 2023)","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.18.12.jpg"},{"a":"Cristóbal Gacitúa","t":"Si, Caché","y":2023,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-22.12.58.jpg"},{"a":"DPSP","t":"Qué más quisiera yo","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-42.jpg"},{"a":"eldelacuadra","t":"No Duele Poco","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.15.29.jpg"},{"a":"Flangr, Shirel","t":"Lejos","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/artworks-Tr9egTqLki7X-0-t500x500.jpg"},{"a":"Friolento","t":"Blin Blin","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-39.jpg"},{"a":"Friolento","t":"Bien Mal","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-43.jpg"},{"a":"Fármacos","t":"Nuestro infierno (Remix)","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-37.jpg"},{"a":"Fármacos","t":"Oler a ti","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-48.jpg"},{"a":"Fármacos","t":"Que Nunca Pare","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.24.49.jpg"},{"a":"Glup!","t":"Me cuesta tanto olvidarte","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-45.jpg"},{"a":"Glup!","t":"Dancing Queen Karaoke Club","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-52.jpg"},{"a":"Jai Dasi","t":"Me equivoqué","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-47.jpg"},{"a":"Marineros","t":"Al calor de un sol que acaba de morir","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-46.jpg"},{"a":"Marineros","t":"Al calor de un sol que acaba de morir (Vinilo)","y":2023,"m":"Fernando Herrera Bastidas & Manuel Ortúzar","i":"https://estudionegro.io/cms/wp-content/uploads/marineros-vinilo.png"},{"a":"Max Valdés, Javier Barría","t":"Mesa puesta","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.20.43.jpg"},{"a":"Pablo Rojas","t":"To' Estos Giles","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.13.00.jpg"},{"a":"Pablo Rojas","t":"Quiero Tu calor","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1.webp"},{"a":"Pablo Rojas","t":"Dingo Dengo","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-2.webp"},{"a":"Paco Miranda","t":"REI","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.11.27.jpg"},{"a":"Paolo Agamio","t":"La perfecta","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-38.jpg"},{"a":"PUERTO DOMINGO","t":"Octubre sin ti","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/images.jpeg"},{"a":"Shirel","t":"Otra Mujer","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-40.jpg"},{"a":"Shirel","t":"Te solté","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.14.15.jpg"},{"a":"Solar","t":"Los Bailes","y":2023,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/Los-Bailes.jpg"},{"a":"Solar","t":"Acuerdo","y":2023,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-21.49.53.jpg"},{"a":"Yorka","t":"Chao (Vinilo)","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/yorka-vinilo.png"},{"a":"Yorka","t":"Volar","y":2023,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.16.45.jpg"},{"a":"Agata Prisma","t":"Te vi","y":2022,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-26.jpg"},{"a":"Amún","t":"Estrellas del lugar","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-31.jpg"},{"a":"Amún","t":"Lo que llevas","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-32.jpg"},{"a":"Daniel Guerrero","t":"Mary es mi amor","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-35.jpg"},{"a":"Lucas Piraino","t":"Amazonas","y":2022,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-25.jpg"},{"a":"Olivia García","t":"Ven a mi lado","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-34.jpg"},{"a":"Paco Miranda","t":"Aún en mi mente","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-29.jpg"},{"a":"Paco Miranda","t":"Al Borde del Abismo","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.05.05.jpg"},{"a":"Paco Miranda","t":"Yaoi","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.14.31.jpg"},{"a":"Pedropiedra","t":"Estado Vegetal","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.17.43.jpg"},{"a":"Pedropiedra, Cancamusa","t":"Noches Perdidas","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.21.52.jpg"},{"a":"quediostesalve ft. Camila Moreno","t":"Lilith:6","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-30.jpg"},{"a":"Shirel","t":"TYF","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-22.jpg"},{"a":"Shirel","t":"Cristal","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-33.jpg"},{"a":"Shirel","t":"Romper Platos","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.20.35.jpg"},{"a":"Shirel","t":"Libre Albedrío","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.23.03.jpg"},{"a":"Tololo","t":"Carrusel","y":2022,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/37343.jpg"},{"a":"Yorka","t":"Mira Niñita","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-24.jpg"},{"a":"Yorka","t":"Viento (acústico)","y":2022,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-27.jpg"},{"a":"Yorka","t":"Chao","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-28.jpg"},{"a":"Yorka","t":"La Torpeza","y":2022,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.11.27.jpg"},{"a":"Agata Prisma, Mariana Montenegro","t":"Olvidarte Es un Arte","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.16.26.jpg"},{"a":"Begoña Ortúzar","t":"Rayo verde","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-6.jpg"},{"a":"Belencha","t":"Petronila","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-18.jpg"},{"a":"Belencha","t":"Belencha","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-7.jpg"},{"a":"Belencha","t":"Belencha en MAVI","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-8.jpg"},{"a":"elmalamía (ft. Francisco Victoria)","t":"nopidomucho","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-19.jpg"},{"a":"Fármacos","t":"Humedad","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-4.jpg"},{"a":"Gepe","t":"Cap. 7: Liturgia","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-12.jpg"},{"a":"Gepe","t":"Rimas pa seducir","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-11.jpg"},{"a":"Gepe","t":"Fe","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-13.jpg"},{"a":"Gepe","t":"(un poco + de) FE","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-22.21.00.jpg"},{"a":"Hakanna","t":"Veinte","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-1.jpg"},{"a":"Lucas Piraino","t":"Cinco Minutos","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-5.jpg"},{"a":"MARÍA","t":"Magdalena: 2","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-15.jpg"},{"a":"Monitogorila","t":"Monitogorila","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-16.jpg"},{"a":"Natisú","t":"Amores","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-17.jpg"},{"a":"Pedropiedra","t":"Sonámbulo","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-21.jpg"},{"a":"quediostesalve","t":"Magdalena: 2","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.12.47.jpg"},{"a":"Shirel","t":"Duele","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-9.jpg"},{"a":"Shirel","t":"Papi no me hagas llorar","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-20.jpg"},{"a":"Tololo","t":"San Felipe","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-10.jpg"},{"a":"Yorka","t":"Viento","y":2021,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-23.jpg"},{"a":"Yorka y Nicole","t":"Mentí (acústico)","y":2021,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-3.jpg"},{"a":"Nati Sativa","t":"Mariposas","y":2020,"m":"Fernando Herrera Bastidas en Estudionegro CDMX","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-14.jpg"},{"a":"Tormenta","t":"Te Lloraría una Tarde","y":2016,"m":"Manuel Ortúzar en Estudionegro Berlín","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-22.59.00.jpg"}];
 
-// ── build UI ────────────────────────────────────────────────────────
 var years = [];
-DATA.forEach(function(p){ if(years.indexOf(p.y)<0) years.push(p.y); });
+DATA.forEach(function(p){ if(p.y > 0 && years.indexOf(p.y)<0) years.push(p.y); });
 years.sort(function(a,b){ return b-a; });
 
 var byYear = {};
-DATA.forEach(function(p){ if(!byYear[p.y]) byYear[p.y]=[]; byYear[p.y].push(p); });
+DATA.forEach(function(p){
+  var k = p.y > 0 ? p.y : 'otros';
+  if(!byYear[k]) byYear[k]=[];
+  byYear[k].push(p);
+});
 
 // filter
 var filterEl = document.getElementById('filter');
@@ -197,7 +199,7 @@ function makeBtn(label, val) {
   var b = document.createElement('button');
   b.className = 'yr-btn' + (val==='all'?' on':'');
   b.textContent = label;
-  b.onclick = function() {
+  b.onclick = function(){
     document.querySelectorAll('.yr-btn').forEach(function(x){x.classList.remove('on');});
     b.classList.add('on');
     document.querySelectorAll('.yr-section').forEach(function(s){
@@ -205,7 +207,7 @@ function makeBtn(label, val) {
     });
     if(val!=='all'){
       var sec=document.querySelector('.yr-section[data-year="'+val+'"]');
-      if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'});
+      if(sec) window.scrollTo({top: sec.getBoundingClientRect().top + window.scrollY - 48, behavior:'smooth'});
     }
   };
   return b;
@@ -215,10 +217,10 @@ years.forEach(function(y){ filterEl.appendChild(makeBtn(y,y)); });
 
 // content
 var content = document.getElementById('content');
-var coverEls = []; // [{imgEl, artist, track}] for lazy loading
-
-years.forEach(function(y) {
+years.forEach(function(y){
   var items = byYear[y];
+  if(!items || !items.length) return;
+
   var sec = document.createElement('div');
   sec.className = 'yr-section';
   sec.dataset.year = y;
@@ -228,82 +230,34 @@ years.forEach(function(y) {
   hdr.innerHTML = '<span class="yr-label">'+y+'</span><span class="yr-count">'+items.length+' track'+(items.length>1?'s':'')+'</span>';
   sec.appendChild(hdr);
 
-  items.forEach(function(p) {
+  items.forEach(function(p){
     var row = document.createElement('div');
     row.className = 'entry';
 
+    // cover
+    var cover = document.createElement('div');
+    cover.className = 'e-cover';
+    var img = document.createElement('img');
+    img.src = p.i;
+    img.alt = p.a;
+    img.loading = 'lazy';
+    cover.appendChild(img);
+
+    // info
     var info = document.createElement('div');
     info.className = 'e-info';
     info.innerHTML =
       '<div class="e-artist">'+p.a+'</div>'+
-      (p.t ? '<div class="e-track">'+p.t+'</div>' : '')+
-      '<div class="e-year">'+p.y+'</div>';
+      '<div class="e-track">'+p.t+'</div>'+
+      '<div class="e-meta">'+p.m+'</div>';
 
-    var cover = document.createElement('div');
-    cover.className = 'e-cover';
-    var img = document.createElement('img');
-    img.alt = '';
-    cover.appendChild(img);
-
-    row.appendChild(info);
     row.appendChild(cover);
+    row.appendChild(info);
     sec.appendChild(row);
-
-    coverEls.push({ img:img, cover:cover, a:p.a, t:p.t, loaded:false });
   });
 
   content.appendChild(sec);
 });
-
-// ── lazy cover loading via iTunes API ───────────────────────────────
-var queue = coverEls.slice();
-var inFlight = 0;
-var MAX = 3; // concurrent requests
-
-function loadNext() {
-  while(inFlight < MAX && queue.length > 0) {
-    var item = queue.shift();
-    if(!isVisible(item.img)) { queue.push(item); continue; }
-    fetchCover(item);
-  }
-}
-
-function isVisible(el) {
-  var r = el.getBoundingClientRect();
-  return r.top < window.innerHeight + 300;
-}
-
-function fetchCover(item) {
-  if(item.loaded) return;
-  item.loaded = true;
-  inFlight++;
-  var q = encodeURIComponent((item.a + ' ' + (item.t||'')).trim());
-  var url = 'https://itunes.apple.com/search?term='+q+'&media=music&limit=1&entity=song&country=cl';
-  fetch(url)
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      inFlight--;
-      if(d.resultCount > 0 && d.results[0].artworkUrl100) {
-        var art = d.results[0].artworkUrl100.replace('100x100bb','300x300bb');
-        item.img.src = art;
-        item.img.onload = function(){ item.img.classList.add('loaded'); };
-      } else {
-        item.cover.classList.add('no-art');
-      }
-      loadNext();
-    })
-    .catch(function(){
-      inFlight--;
-      item.cover.classList.add('no-art');
-      loadNext();
-    });
-}
-
-// start loading visible items + on scroll
-function onScroll() { loadNext(); }
-window.addEventListener('scroll', onScroll, {passive:true});
-setTimeout(loadNext, 200);
 </script>
-
 </body>
 </html>
