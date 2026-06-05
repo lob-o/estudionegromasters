@@ -6,226 +6,217 @@
   <title>ARCHIVO — ESTUDIONEGRO MASTERS</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-
     html { background:#fff; color:#000; }
     body {
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
       padding:18px 26px 60px;
+      max-width:900px;
     }
 
     /* ── top bar ── */
     .topbar {
       display:flex; align-items:baseline;
       justify-content:space-between;
-      padding-bottom:10px;
+      padding-bottom:12px;
       border-bottom:2px solid #000;
-      margin-bottom:10px;
+      margin-bottom:0;
     }
     .back {
       font-weight:900;
-      font-size:clamp(1.4rem,3.5vw,2.6rem);
+      font-size:clamp(1.4rem,3.2vw,2.4rem);
       letter-spacing:-0.02em;
       color:#000; text-decoration:none;
+      display:inline-block;
       transform:scaleX(0.96);
       transform-origin:left center;
-      display:inline-block;
     }
     .back:hover { opacity:0.4; }
-
     .page-title {
       font-weight:900;
-      font-size:clamp(1.4rem,3.5vw,2.6rem);
+      font-size:clamp(1.4rem,3.2vw,2.4rem);
       letter-spacing:-0.02em;
+      display:inline-block;
       transform:scaleX(0.96);
       transform-origin:right center;
-      display:inline-block;
     }
 
     /* ── year filter ── */
     .filter {
       display:flex; flex-wrap:wrap;
-      gap:0;
       border-bottom:1px solid #000;
-      margin-bottom:0;
     }
     .yr-btn {
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
       font-weight:700;
-      font-size:0.65rem;
-      letter-spacing:0.08em;
-      padding:8px 12px;
-      border:none; border-right:0.5px solid #ddd;
+      font-size:0.6rem;
+      letter-spacing:0.1em;
+      padding:7px 11px;
+      border:none; border-right:0.5px solid #e0e0e0;
       background:transparent; cursor:pointer;
-      color:#aaa; transition:color 0.15s;
+      color:#bbb; transition:color 0.15s;
     }
     .yr-btn:last-child { border-right:none; }
     .yr-btn.on { color:#000; }
-    .yr-btn:hover { color:#000; }
+    .yr-btn:hover { color:#555; }
 
-    /* ── content ── */
-    .content { }
+    /* ── entries ── */
+    .entry {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 0;
+      border-bottom:0.5px solid #e8e8e8;
+      gap:24px;
+    }
+    .entry:hover { background:#fafafa; margin:0 -8px; padding-left:8px; padding-right:8px; }
 
-    /* year section */
-    .yr-section { }
+    .e-info { flex:1; min-width:0; }
 
+    .e-artist {
+      font-weight:700;
+      font-size:clamp(0.95rem,1.8vw,1.15rem);
+      letter-spacing:-0.01em;
+      line-height:1.2;
+      margin-bottom:5px;
+    }
+    .e-track {
+      font-weight:400;
+      font-size:clamp(0.8rem,1.4vw,0.95rem);
+      color:#666;
+      line-height:1.4;
+    }
+    .e-year {
+      font-weight:400;
+      font-size:0.75rem;
+      color:#bbb;
+      margin-top:3px;
+      letter-spacing:0.05em;
+    }
+
+    /* ── cover ── */
+    .e-cover {
+      flex:0 0 72px;
+      width:72px; height:72px;
+      background:#111;
+      position:relative;
+      overflow:hidden;
+    }
+    .e-cover img {
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:0;
+      transition:opacity 0.4s ease;
+    }
+    .e-cover img.loaded { opacity:1; }
+    .e-cover.no-art { background:#1a1a1a; }
+
+    /* year section header */
     .yr-header {
-      display:flex; align-items:baseline;
-      padding:22px 0 10px;
+      padding:28px 0 12px;
+      display:flex; align-items:baseline; gap:14px;
       border-bottom:1px solid #000;
     }
     .yr-label {
       font-weight:900;
-      font-size:clamp(2rem,5vw,3.5rem);
+      font-size:clamp(2rem,5vw,3.2rem);
       letter-spacing:-0.02em;
       line-height:1;
+      display:inline-block;
       transform:scaleX(0.96);
       transform-origin:left center;
-      display:inline-block;
     }
     .yr-count {
-      font-weight:400;
-      font-size:0.62rem;
+      font-size:0.58rem;
       letter-spacing:0.2em;
-      color:#999;
-      margin-left:16px;
-      transform:none;
-    }
-
-    /* entry row */
-    .entry {
-      display:flex;
-      align-items:baseline;
-      padding:9px 0;
-      border-bottom:0.5px solid #ddd;
-      gap:12px;
-    }
-    .entry:hover { background:#f9f9f9; }
-
-    .e-artist {
-      font-weight:700;
-      font-size:clamp(0.82rem,1.4vw,1rem);
-      letter-spacing:-0.01em;
-      flex:0 0 auto;
-      min-width:0;
-    }
-    .e-dots {
-      flex:1;
-      border-bottom:1px dotted #ccc;
-      height:0;
-      align-self:center;
-      min-width:20px;
-    }
-    .e-track {
+      color:#aaa;
       font-weight:400;
-      font-size:clamp(0.82rem,1.4vw,1rem);
-      letter-spacing:-0.01em;
-      color:#444;
-      flex:0 0 auto;
-      text-align:right;
-      max-width:55%;
     }
-    .e-track.empty { display:none; }
 
-    /* no track: just artist centered-ish */
-    .entry.solo .e-dots { display:none; }
-    .entry.solo .e-track { display:none; }
+    .yr-section.hidden { display:none; }
 
     /* ── footer ── */
     .foot {
-      margin-top:40px;
-      padding-top:10px;
+      margin-top:48px;
+      padding-top:12px;
       border-top:2px solid #000;
       display:flex; justify-content:space-between; align-items:baseline;
     }
     .foot-nav { display:flex; gap:2vw; }
     .foot-nav a {
       font-weight:900;
-      font-size:clamp(1.6rem,4vw,3.2rem);
+      font-size:clamp(1.5rem,3.5vw,2.8rem);
       letter-spacing:-0.02em;
       color:#000; text-decoration:none;
       display:inline-block;
       transform:scaleX(0.96);
       transform-origin:left center;
-      transition:opacity 0.15s;
     }
     .foot-nav a:hover { opacity:0.3; }
-    .foot-count {
-      font-size:0.6rem;
-      letter-spacing:0.3em;
-      color:#aaa;
+    .foot-info {
+      font-size:0.58rem;
+      letter-spacing:0.25em;
+      color:#bbb;
       font-weight:400;
       align-self:center;
     }
-
-    /* hidden */
-    .yr-section.hidden { display:none; }
   </style>
 </head>
 <body>
 
-<!-- top bar -->
 <div class="topbar">
   <a class="back" href="index.html">← ESTUDIONEGRO MASTERS</a>
   <span class="page-title">ARCHIVO</span>
 </div>
 
-<!-- year filter -->
 <div class="filter" id="filter"></div>
+<div id="content"></div>
 
-<!-- content -->
-<div class="content" id="content"></div>
-
-<!-- footer -->
 <div class="foot">
   <nav class="foot-nav">
     <a href="index.html">INICIO</a>
     <a href="#">CONTACTO</a>
   </nav>
-  <span class="foot-count">181 MASTERIZACIONES · 2009—2024</span>
+  <span class="foot-info">181 MASTERIZACIONES · 2009—2024</span>
 </div>
 
 <script>
 var DATA = [{"a":"Adri Stuven","t":"Azul (de mar)","y":2024},{"a":"Composesiones","t":"Pedropiedra","y":2024},{"a":"Emilia Borlone","t":"Solita yo","y":2024},{"a":"Fil Uno","t":"Suite Nipples","y":2024},{"a":"Francisca Valenzuela, Daniela Spalla","t":"Quiéreme O Ándate","y":2024},{"a":"Fransico Victoria, AKRIILA","t":"Te quiero tanto","y":2024},{"a":"Fármacos","t":"Cuarto","y":2024},{"a":"HAKANNA, lolosuelto","t":"na de na","y":2024},{"a":"Lab/Workshop","t":"Cristián Heyne","y":2024},{"a":"Lucas Piraino","t":"Se está gastando","y":2024},{"a":"Max Valdés","t":"TAMBIÉN HAY DIOS EN EL DOLOR","y":2024},{"a":"Pedropiedra","t":"Tótem","y":2024},{"a":"Poder Fantasma","t":"NO DEJO DE PENSAR EN TI","y":2024},{"a":"Poder Fantasma","t":"AMOR EVITATIVO","y":2024},{"a":"PUERTO DOMINGO","t":"STOP","y":2024},{"a":"PUERTO DOMINGO","t":"Aki","y":2024},{"a":"PUERTO DOMINGO feat. pau","t":"6delamañana","y":2024},{"a":"Quién es Gerónimo","t":"Mi casa","y":2024},{"a":"Taller de mezcla y producción","t":"Fernando Herrera Bastidas","y":2024},{"a":"We Are The Grand","t":"Corazón Negro","y":2024},{"a":"Cancamusa","t":"Amor Minimal","y":2023},{"a":"Flangr, Shirel","t":"Lejos","y":2023},{"a":"Francisca Valenzuela","t":"Adentro","y":2023},{"a":"Los Tristes","t":"Fantasmas","y":2023},{"a":"Marineros","t":"Al calor de un sol que acaba de morir","y":2023},{"a":"nubes","t":"En un Futuro Lo Efímero No Se Quedará a la Mitad","y":2023},{"a":"Onyx IV","t":"Akriila","y":2023},{"a":"Pablo Rojas","t":"Un Pedacito","y":2023},{"a":"Paolo Agamio","t":"La Perfecta","y":2023},{"a":"pau","t":"volumen dos","y":2023},{"a":"PUERTO DOMINGO","t":"Octubre sin ti","y":2023},{"a":"PUERTO DOMINGO","t":"Paciencia eterna","y":2023},{"a":"PUERTO DOMINGO","t":"3","y":2023},{"a":"Solar","t":"Los Bailes","y":2023},{"a":"Solar","t":"Acuerdo","y":2023},{"a":"Solar","t":"Atajo del Tiempo","y":2023},{"a":"Vicenta con Cabiria","t":"correr","y":2023},{"a":"Lucas Piraino","t":"Cinco minutos","y":2022},{"a":"MOVEDIZA","t":"Fracturas","y":2022},{"a":"Nicole","t":"Claroscuro","y":2022},{"a":"Paco Miranda","t":"Al borde del abismo","y":2022},{"a":"Pedropiedra","t":"Estado Vegetal","y":2022},{"a":"Pedropiedra feat. Cancamusa","t":"Noches Perdidas","y":2022},{"a":"Shirel","t":"Cristal","y":2022},{"a":"Shirel","t":"TYF","y":2022},{"a":"Shirel","t":"Romper platos","y":2022},{"a":"Tololo","t":"Carrusel","y":2022},{"a":"Tololo","t":"Lágrimas","y":2022},{"a":"Tormenta","t":"Te lloraría una tarde","y":2022},{"a":"Yorka","t":"Chao","y":2022},{"a":"Yorka","t":"La torpeza","y":2022},{"a":"Begoña Ortúzar","t":"Rayo Verde","y":2021},{"a":"Belencha","t":"Belencha","y":2021},{"a":"Belencha","t":"Belencha en MAVI","y":2021},{"a":"Belencha y Camila Moreno","t":"Petronila","y":2021},{"a":"Camila Moreno","t":"Rey","y":2021},{"a":"Camila Moreno","t":"Hice a mi amor llorar","y":2021},{"a":"Camila Moreno con Ximena Sariñana y Lido Pimienta","t":"Déjame","y":2021},{"a":"Cancamusa","t":"Sin miedo a la profundidad","y":2021},{"a":"Daniel Guerrero","t":"Gol de Caszely","y":2021},{"a":"Fármacos","t":"Manual de una pérdida (Álbum)","y":2021},{"a":"Fármacos","t":"Humedad","y":2021},{"a":"Gepe","t":"FE, (un poco + de) FE","y":2021},{"a":"Kings of Convenience","t":"Peace or Love","y":2021},{"a":"Los Tristes","t":"En los cerros","y":2021},{"a":"Los Tristes","t":"Sabes","y":2021},{"a":"MOVEDIZA","t":"Espantar","y":2021},{"a":"Nocheósfera","t":"Harakiri","y":2021},{"a":"Pedropiedra","t":"Sonámbulo","y":2021},{"a":"Shirel","t":"Papi no me hagas llorar","y":2021},{"a":"Shirel y Polimá Westcoast","t":"Money (Remix)","y":2021},{"a":"Tololo","t":"San Felipe","y":2021},{"a":"Yorka","t":"Enloquecer","y":2021},{"a":"Yorka y Nicole","t":"Mentí (Acústica)","y":2021},{"a":"Yorka, Lido Pimienta y Gepe","t":"Viento","y":2021},{"a":"Belencha","t":"Pajarillo","y":2020},{"a":"Belencha","t":"Un poquito de tu amor","y":2020},{"a":"Camila Moreno","t":"Es real","y":2020},{"a":"Camila Moreno y Guaynaa","t":"Esta electricidad (Es Real)","y":2020},{"a":"Cancamusa","t":"Lo inevitable","y":2020},{"a":"Cancamusa","t":"Late","y":2020},{"a":"Cancamusa feat. Vanessa Zamora","t":"Venus (Remix)","y":2020},{"a":"Fármacos","t":"Cuando hablo de ti","y":2020},{"a":"Fármacos","t":"Manual de una Pérdida","y":2020},{"a":"Fármacos","t":"Tú detrás de todo","y":2020},{"a":"Gepe","t":"ULYSE","y":2020},{"a":"Gepe","t":"Buena memoria","y":2020},{"a":"Gepe y Princesa Alba","t":"tupenaesmipena","y":2020},{"a":"Lucas Piraino","t":"Te lloro","y":2020},{"a":"Marineros","t":"Todo a la vez","y":2020},{"a":"MOVEDIZA","t":"Y qué","y":2020},{"a":"MOVEDIZA","t":"Este puente se va a caer","y":2020},{"a":"MOVEDIZA","t":"Un temporal","y":2020},{"a":"Nocheósfera","t":"Dorama toxic","y":2020},{"a":"Onyx III","t":"Ethereal","y":2020},{"a":"Pedropiedra","t":"Aló (Álbum)","y":2020},{"a":"Shirel","t":"Money","y":2020},{"a":"Shirel","t":"Sola","y":2020},{"a":"Shirel","t":"Dímelo","y":2020},{"a":"Shirel","t":"Duele","y":2020},{"a":"Shogun","t":"Primavera","y":2020},{"a":"Shogun","t":"Pai de limón","y":2020},{"a":"Spíritu","t":"Sp_1","y":2020},{"a":"Yorka","t":"Mentí","y":2020},{"a":"André Ubilla ft. Colombina Parra","t":"Invierno","y":2019},{"a":"Camila Moreno","t":"Quememos el Reino","y":2019},{"a":"Estudionegro X","t":"","y":2019},{"a":"Fernando Milagros","t":"Tú","y":2019},{"a":"Fernando Milagros","t":"Serpiente","y":2019},{"a":"Fernando Milagros","t":"Serpiente (Álbum)","y":2019},{"a":"Fármacos","t":"Esperar","y":2019},{"a":"Fármacos","t":"Nuestro infierno","y":2019},{"a":"Marineros","t":"Ámbar","y":2019},{"a":"Milton James","t":"Pretemporada","y":2019},{"a":"Onyx II","t":"Fernando Milagros","y":2019},{"a":"Pedropiedra","t":"Amar en silencio","y":2019},{"a":"Pedropiedra","t":"Hipnotizada","y":2019},{"a":"Pedropiedra","t":"Aló","y":2019},{"a":"Planeta No","t":"Raro","y":2019},{"a":"André Ubilla","t":"Derecho a Progresar","y":2018},{"a":"Begoña Ortúzar","t":"El Farsante","y":2018},{"a":"Gepe","t":"Folclor Imaginario","y":2018},{"a":"Indiependencia","t":"Indiependencia EP","y":2018},{"a":"Pedropiedra","t":"Perder Ganar","y":2018},{"a":"Planeta No","t":"Me voy pa mi casa","y":2018},{"a":"Playa Gótica","t":"Amigurumi","y":2018},{"a":"Ves Tal Vez","t":"Naturaleza","y":2018},{"a":"Gepe","t":"Ciencia Exacta","y":2017},{"a":"Molly Von Prolog","t":"Prolog","y":2017},{"a":"Tololo","t":"Pérdida Total","y":2017},{"a":"Tormenta","t":"Primera Parte","y":2017},{"a":"(Me llamo) Sebastián","t":"Las Polillas","y":2016},{"a":"Fernando Milagros","t":"Marcha de las cadenas","y":2016},{"a":"Marineros","t":"Torbellino","y":2016},{"a":"Me llamo Sebastián","t":"Hijos del peligro","y":2016},{"a":"NMC","t":"Pop de guitarras en Chile","y":2016},{"a":"Camila Moreno","t":"Mala Madre","y":2015},{"a":"Fármacos","t":"Belleza","y":2015},{"a":"Gepe","t":"Estilo Libre","y":2015},{"a":"Gepe","t":"Hambre","y":2015},{"a":"José Biggs","t":"Biggs","y":2015},{"a":"Marineros","t":"O Marineros","y":2015},{"a":"Fernando Milagros","t":"Nuevo Sol","y":2014},{"a":"Javiera Mena","t":"Otra Era","y":2014},{"a":"Marineros","t":"Oh Oh","y":2014},{"a":"Tourista","t":"Gato por liebre","y":2014},{"a":"Camila Moreno","t":"Te Quise","y":2013},{"a":"Colombina Parra","t":"Detrás del Vidrio","y":2013},{"a":"Danna Paola","t":"Agüita","y":2013},{"a":"Electrodomésticos","t":"Se Caiga El Cielo","y":2013},{"a":"Javiera Mena","t":"Espada","y":2013},{"a":"Javiera Mena","t":"Primeras Composiciones 2000-2003","y":2013},{"a":"Marineros","t":"Espero","y":2013},{"a":"Nicole","t":"Panal","y":2013},{"a":"Santa Fé","t":"Flash y Volcán","y":2013},{"a":"Camila Moreno","t":"Panal","y":2012},{"a":"Gepe","t":"GP","y":2012},{"a":"Joven y Alocada","t":"Javiera Mena","y":2012},{"a":"Alex Anwandter","t":"Rebeldes","y":2011},{"a":"Deborah de Corral","t":"Nunca o Una Eternidad","y":2011},{"a":"Fernando Milagros","t":"San Sebastián","y":2011},{"a":"Javiera Mena","t":"La vida no es Eterna, Tributo a Caifanes","y":2011},{"a":"Lara Pedrosa","t":"GLMDTA + Suave","y":2011},{"a":"Lillyput","t":"Lillyput","y":2011},{"a":"Tío Lucho","t":"Innombrable","y":2011},{"a":"Violeta Se Fue a Los Cielos","t":"","y":2011},{"a":"Christian Chávez","t":"En Dónde Estás (Remix)","y":2010},{"a":"Drama","t":"","y":2010},{"a":"Dénver","t":"Música, Gramática, Gimnasia","y":2010},{"a":"Gepe","t":"Audiovisión","y":2010},{"a":"Javiera Mena","t":"Mena","y":2010},{"a":"Nicole","t":"Té Para 3","y":2010},{"a":"Pánico","t":"La banda que buscó el sonido debajo","y":2010},{"a":"Velódromo","t":"","y":2010},{"a":"Chancho en Piedra","t":"Combo Show","y":2009},{"a":"El Blog de la Feña","t":"2a temporada","y":2009},{"a":"G6","t":"El Quinto Día","y":2009},{"a":"Gepe","t":"Las Piedras","y":2009},{"a":"Kudai","t":"Hoy Quiero (Version Pop)","y":2009},{"a":"Kudai. Morir de Amor (Remix)","t":"","y":2009},{"a":"Petro","t":"Nuestro Ritual","y":2009}];
 
-// get unique years descending
+// ── build UI ────────────────────────────────────────────────────────
 var years = [];
 DATA.forEach(function(p){ if(years.indexOf(p.y)<0) years.push(p.y); });
 years.sort(function(a,b){ return b-a; });
 
-var activeYear = 'all';
+var byYear = {};
+DATA.forEach(function(p){ if(!byYear[p.y]) byYear[p.y]=[]; byYear[p.y].push(p); });
 
-// build filter
-var filter = document.getElementById('filter');
+// filter
+var filterEl = document.getElementById('filter');
 function makeBtn(label, val) {
   var b = document.createElement('button');
-  b.className = 'yr-btn' + (val==='all' ? ' on' : '');
+  b.className = 'yr-btn' + (val==='all'?' on':'');
   b.textContent = label;
   b.onclick = function() {
-    activeYear = val;
-    document.querySelectorAll('.yr-btn').forEach(function(x){ x.classList.remove('on'); });
+    document.querySelectorAll('.yr-btn').forEach(function(x){x.classList.remove('on');});
     b.classList.add('on');
     document.querySelectorAll('.yr-section').forEach(function(s){
-      s.classList.toggle('hidden', val !== 'all' && s.dataset.year !== String(val));
+      s.classList.toggle('hidden', val!=='all' && s.dataset.year!==String(val));
     });
-    if(val !== 'all') {
-      var sec = document.querySelector('.yr-section[data-year="'+val+'"]');
-      if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+    if(val!=='all'){
+      var sec=document.querySelector('.yr-section[data-year="'+val+'"]');
+      if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'});
     }
   };
   return b;
 }
-filter.appendChild(makeBtn('TODOS', 'all'));
-years.forEach(function(y){ filter.appendChild(makeBtn(y, y)); });
+filterEl.appendChild(makeBtn('TODOS','all'));
+years.forEach(function(y){ filterEl.appendChild(makeBtn(y,y)); });
 
-// group by year
-var byYear = {};
-DATA.forEach(function(p){
-  if(!byYear[p.y]) byYear[p.y] = [];
-  byYear[p.y].push(p);
-});
-
-// build content
+// content
 var content = document.getElementById('content');
+var coverEls = []; // [{imgEl, artist, track}] for lazy loading
+
 years.forEach(function(y) {
   var items = byYear[y];
   var sec = document.createElement('div');
@@ -234,21 +225,84 @@ years.forEach(function(y) {
 
   var hdr = document.createElement('div');
   hdr.className = 'yr-header';
-  hdr.innerHTML = '<span class="yr-label">'+y+'</span><span class="yr-count">'+items.length+' masterización'+(items.length>1?'es':'')+'</span>';
+  hdr.innerHTML = '<span class="yr-label">'+y+'</span><span class="yr-count">'+items.length+' track'+(items.length>1?'s':'')+'</span>';
   sec.appendChild(hdr);
 
   items.forEach(function(p) {
     var row = document.createElement('div');
-    row.className = 'entry' + (!p.t ? ' solo' : '');
-    row.innerHTML =
-      '<span class="e-artist">'+p.a+'</span>' +
-      '<span class="e-dots"></span>' +
-      '<span class="e-track'+(p.t?'':' empty')+'">'+p.t+'</span>';
+    row.className = 'entry';
+
+    var info = document.createElement('div');
+    info.className = 'e-info';
+    info.innerHTML =
+      '<div class="e-artist">'+p.a+'</div>'+
+      (p.t ? '<div class="e-track">'+p.t+'</div>' : '')+
+      '<div class="e-year">'+p.y+'</div>';
+
+    var cover = document.createElement('div');
+    cover.className = 'e-cover';
+    var img = document.createElement('img');
+    img.alt = '';
+    cover.appendChild(img);
+
+    row.appendChild(info);
+    row.appendChild(cover);
     sec.appendChild(row);
+
+    coverEls.push({ img:img, cover:cover, a:p.a, t:p.t, loaded:false });
   });
 
   content.appendChild(sec);
 });
+
+// ── lazy cover loading via iTunes API ───────────────────────────────
+var queue = coverEls.slice();
+var inFlight = 0;
+var MAX = 3; // concurrent requests
+
+function loadNext() {
+  while(inFlight < MAX && queue.length > 0) {
+    var item = queue.shift();
+    if(!isVisible(item.img)) { queue.push(item); continue; }
+    fetchCover(item);
+  }
+}
+
+function isVisible(el) {
+  var r = el.getBoundingClientRect();
+  return r.top < window.innerHeight + 300;
+}
+
+function fetchCover(item) {
+  if(item.loaded) return;
+  item.loaded = true;
+  inFlight++;
+  var q = encodeURIComponent((item.a + ' ' + (item.t||'')).trim());
+  var url = 'https://itunes.apple.com/search?term='+q+'&media=music&limit=1&entity=song&country=cl';
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      inFlight--;
+      if(d.resultCount > 0 && d.results[0].artworkUrl100) {
+        var art = d.results[0].artworkUrl100.replace('100x100bb','300x300bb');
+        item.img.src = art;
+        item.img.onload = function(){ item.img.classList.add('loaded'); };
+      } else {
+        item.cover.classList.add('no-art');
+      }
+      loadNext();
+    })
+    .catch(function(){
+      inFlight--;
+      item.cover.classList.add('no-art');
+      loadNext();
+    });
+}
+
+// start loading visible items + on scroll
+function onScroll() { loadNext(); }
+window.addEventListener('scroll', onScroll, {passive:true});
+setTimeout(loadNext, 200);
 </script>
 
 </body>
