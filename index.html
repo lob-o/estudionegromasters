@@ -2,28 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- viewport-fit=cover: activa safe-area en iPhone con notch/home indicator -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
   <title>ESTUDIONEGRO MASTERS</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;600&display=swap" rel="stylesheet">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; background:#fff; overflow:hidden; }
 
-    /* ── layout ── */
+    html {
+      -webkit-text-size-adjust:100%; /* evita que iOS infle texto al rotar */
+      text-size-adjust:100%;
+    }
+
+    html, body {
+      width:100%; height:100%;
+      background:#fff;
+      overflow:hidden;
+    }
+
     .page {
       position:fixed; inset:0;
       display:flex; flex-direction:column;
-      padding:18px 26px 16px;
       gap:10px;
+      /* safe-area: respeta notch y home indicator en iPhone X+ */
+      padding: max(18px, env(safe-area-inset-top))
+               max(26px, env(safe-area-inset-right))
+               max(16px, env(safe-area-inset-bottom))
+               max(26px, env(safe-area-inset-left));
     }
 
     /* ── title ── */
     .title { flex-shrink:0; overflow:hidden; }
     .t1, .t2 {
-      display:block; line-height:0.87; color:#000;
+      display:block;
+      line-height:0.87;
+      color:#000;
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
       font-weight:900;
-      font-size:clamp(2.5rem,11.5vw,9rem);
+      font-size:clamp(2.5rem, 11.5vw, 9rem);
       letter-spacing:-0.02em;
       transform:scaleX(0.96);
       transform-origin:left center;
@@ -33,41 +50,45 @@
     .rule-thin { flex-shrink:0; width:100%; height:1px; background:#000; }
 
     /* ── dot panel ── */
-    .dot-wrap { flex:1; min-height:0; background:#000; overflow:hidden; }
-    canvas    { display:block; }
+    .dot-wrap {
+      flex:1; min-height:0;
+      background:#000;
+      overflow:hidden;
+    }
+    canvas {
+      display:block;
+      /* pixelated: mantiene los dots nítidos en pantallas retina */
+      image-rendering:pixelated;
+      image-rendering:-webkit-optimize-contrast; /* Safari */
+      image-rendering:crisp-edges;
+    }
 
     /* ── footer ── */
     .footer {
       flex-shrink:0;
-      display:flex; align-items:baseline; justify-content:space-between;
+      display:flex; align-items:baseline;
     }
     .nav { display:flex; gap:1.8vw; }
     .nav a {
-      color:#000; text-decoration:none; transition:opacity 0.15s;
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
       font-weight:900;
-      font-size:clamp(1.8rem,4.5vw,3.8rem);
+      /* min 1.4rem en vez de 1.8rem: evita overflow en iPhone SE / 375px */
+      font-size:clamp(1.4rem, 4.5vw, 3.8rem);
       letter-spacing:-0.02em;
+      color:#000;
+      text-decoration:none;
       display:inline-block;
+      white-space:nowrap; /* nunca rompe en dos líneas */
       transform:scaleX(0.96);
       transform-origin:left center;
+      transition:opacity 0.15s;
+      -webkit-tap-highlight-color:transparent; /* quita flash azul en Android */
+      touch-action:manipulation; /* tap sin delay de 300ms */
     }
     .nav a:hover { opacity:0.28; }
-
-
-
-
-
-
-    .meta {
-      font-family:'DM Mono',monospace; font-weight:300;
-      font-size:0.58rem; letter-spacing:0.38em; color:#999;
-      align-self:center;
-    }
   </style>
 </head>
 <body>
-
 
 <div class="page" id="page">
 
@@ -94,7 +115,6 @@
 </div>
 
 <script>
-// ── counter ──────────────────────────────────────────────────────────────
 var SONGS_PER_MS = 100000 / 86400000;
 var DAY_START    = (function(){ var d = new Date(); d.setHours(0,0,0,0); return d.getTime(); })();
 
@@ -114,14 +134,10 @@ function fmtDate() {
   return dd + ' ' + mm + ' ' + d.getFullYear();
 }
 
-// ── dot grid — pixel-perfect uniform integer grid ─────────────────────────
-var CELL = 3; // cell size in px (integer = perfectly uniform)
-var DOT  = 2; // dot size in px (1px gap between dots)
-
+var CELL = 3, DOT = 2;
 var cv   = document.getElementById('dots');
 var cx   = cv.getContext('2d');
 var wrap = document.getElementById('dot-wrap');
-
 var G = null, BASE = null, lastN = -1, lastSec = -1;
 var TEXT_H = 62;
 
@@ -133,11 +149,9 @@ function setup() {
   var DH   = H - TEXT_H;
   var cols = Math.floor(W  / CELL);
   var rows = Math.floor(DH / CELL);
-  var tot  = cols * rows;
 
-  // Pre-render: perfectly uniform dim dot grid
   var buf = new Uint8ClampedArray(W * H * 4);
-  for (var i = 3; i < buf.length; i += 4) buf[i] = 255; // alpha
+  for (var i = 3; i < buf.length; i += 4) buf[i] = 255;
 
   for (var row = 0; row < rows; row++) {
     for (var col = 0; col < cols; col++) {
@@ -145,13 +159,13 @@ function setup() {
       for (var dy = 0; dy < DOT; dy++) {
         for (var dx = 0; dx < DOT; dx++) {
           var pi = ((y0 + dy) * W + (x0 + dx)) * 4;
-          buf[pi] = buf[pi+1] = buf[pi+2] = 28; // dim gray
+          buf[pi] = buf[pi+1] = buf[pi+2] = 28;
         }
       }
     }
   }
 
-  G    = { rows:rows, cols:cols, total:tot, W:W, H:H, DH:DH };
+  G    = { rows:rows, cols:cols, total:rows*cols, W:W, H:H, DH:DH };
   BASE = buf;
   lastN = lastSec = -1;
 }
@@ -161,46 +175,41 @@ function render(n) {
   var g = G, W = g.W, H = g.H, DH = g.DH;
 
   var data   = new Uint8ClampedArray(BASE);
-  var filled = Math.round(n / 100000 * g.total); // scale to actual dot count
+  var filled = Math.round(n / 100000 * g.total);
 
   for (var idx = 0; idx < filled && idx < g.total; idx++) {
     var row = Math.floor(idx / g.cols), col = idx % g.cols;
-    var x0  = col * CELL, y0 = row * CELL;
+    var x0 = col * CELL, y0 = row * CELL;
     for (var dy = 0; dy < DOT; dy++) {
       for (var dx = 0; dx < DOT; dx++) {
         var pi = ((y0 + dy) * W + (x0 + dx)) * 4;
-        data[pi] = data[pi+1] = data[pi+2] = 255; // white
+        data[pi] = data[pi+1] = data[pi+2] = 255;
       }
     }
   }
 
   cx.putImageData(new ImageData(data, W, H), 0, 0);
 
-  // ── stats strip ──────────────────────────────────────────────────────
   var pad = 16;
   cx.textBaseline = 'alphabetic';
 
   cx.fillStyle = '#222';
-  cx.fillRect(0, DH, W, 1); // separator line
+  cx.fillRect(0, DH, W, 1);
 
-  // Red label
   cx.font = '600 13px "Helvetica Neue", Helvetica, Arial, sans-serif';
   cx.fillStyle = '#e63030';
   cx.textAlign = 'left';
   cx.fillText('LANZAMIENTOS GLOBALES HOY', pad, DH + 22);
 
-  // White value line — count LEFT, time + date RIGHT — same baseline
   cx.font = '700 24px "Helvetica Neue", Helvetica, Arial, sans-serif';
   cx.fillStyle = '#ffffff';
-
   cx.textAlign = 'left';
   cx.fillText(fmtNum(n) + ' \u25AA', pad, DH + 50);
 
-  cx.textAlign = 'right';
   cx.font = '400 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
   cx.fillStyle = '#555';
+  cx.textAlign = 'right';
   cx.fillText(fmtTime() + '    ' + fmtDate(), W - pad, DH + 50);
-
   cx.textAlign = 'left';
 }
 
