@@ -7,12 +7,11 @@
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      width:100%; height:100%;
       background:#fff; color:#000;
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
     }
 
-    /* ── top bar ── */
+    /* topbar — igual que el resto del sitio */
     .topbar {
       display:flex; align-items:baseline; justify-content:space-between;
       padding:16px 16px 12px;
@@ -27,79 +26,67 @@
     .back:hover { opacity:0.4; }
     .page-title {
       font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
-      letter-spacing:-0.02em; display:inline-block;
-      transform:scaleX(0.96); transform-origin:right center;
-    }
-
-    /* ── body ── */
-    .body {
-      padding:52px 16px 60px;
-      display:flex; flex-direction:column;
-      gap:0;
-    }
-    @media(min-width:600px){ .body { padding:64px 26px 80px; } }
-
-    /* engineers */
-    .engineers {
-      display:flex; flex-direction:column;
-      gap:2px;
-      margin-bottom:48px;
-    }
-    .eng {
-      font-weight:900;
-      font-size:clamp(1.6rem,5vw,3.8rem);
       letter-spacing:-0.02em;
-      line-height:1;
-      display:inline-block;
-      transform:scaleX(0.96);
-      transform-origin:left center;
+      display:inline-block; transform:scaleX(0.96); transform-origin:right center;
+    }
+
+    /* cuerpo */
+    .body {
+      padding:48px 16px 80px;
+      max-width:520px;
+    }
+    @media(min-width:600px){ .body { padding:56px 26px 80px; } }
+
+    /* bloque 1: cta + email */
+    .intro {
+      font-size:0.95rem;
+      font-weight:400;
+      color:#666;
+      line-height:1.65;
+      margin-bottom:10px;
+    }
+
+    a.email {
+      font-size:0.95rem;
+      font-weight:700;
       color:#000;
       text-decoration:none;
-      transition:opacity 0.15s;
+      letter-spacing:-0.01em;
     }
-    .eng:hover { opacity:0.4; }
-    .eng-city {
-      font-size:clamp(1.6rem,5vw,3.8rem);
-      font-weight:900;
-      letter-spacing:-0.02em;
-      line-height:1;
-      color:#ccc;
-      display:inline;
+    a.email:hover { opacity:0.4; }
+
+    /* bloque 2: equipo */
+    .team {
+      margin-top:48px;
     }
 
-    /* formats */
-    .formats {
-      font-family:'DM Mono',monospace;
-      font-size:0.65rem;
-      letter-spacing:0.2em;
+    .team-label {
+      font-size:0.55rem;
+      font-weight:400;
+      letter-spacing:0.22em;
       color:#aaa;
-      margin-bottom:40px;
-      font-weight:400;
+      text-transform:uppercase;
+      margin-bottom:14px;
     }
 
-    /* cta text */
-    .cta-text {
-      font-size:clamp(0.85rem,1.8vw,1rem);
-      font-weight:400;
-      color:#888;
-      letter-spacing:0.01em;
-      margin-bottom:32px;
-      line-height:1.5;
-    }
-
-    /* email */
-    .email {
-      font-weight:900;
-      font-size:clamp(1rem,3vw,2rem);
+    .person {
+      display:block;
+      font-weight:700;
+      font-size:clamp(1.1rem,2.8vw,1.6rem);
       letter-spacing:-0.02em;
-      color:#000; text-decoration:none;
-      display:inline-block;
-      transform:scaleX(0.96); transform-origin:left center;
-      border-bottom:2px solid #000;
-      padding-bottom:1px;
-      transition:opacity 0.15s;
+      line-height:1.15;
+      color:#000;
+      text-decoration:none;
     }
-    .email:hover { opacity:0.35; }
+    .person:hover { opacity:0.4; }
+    .person + .person { margin-top:2px; }
+
+    .city {
+      font-weight:700;
+      font-size:clamp(1.1rem,2.8vw,1.6rem);
+      letter-spacing:-0.02em;
+      color:#ccc;
+    }
   </style>
 </head>
 <body>
@@ -111,24 +98,16 @@
 
 <div class="body">
 
-  <div class="engineers">
+  <p class="intro">Para agendar una sesión, consultar tarifas<br>o recibir más información, escribe a:</p>
+  <a class="email" href="mailto:contacto@estudionegro.io">contacto@estudionegro.io</a>
+
+  <div class="team">
+    <div class="team-label">Nuestro equipo</div>
     <div>
-      <a class="eng" href="https://www.instagram.com/fernandoherrerabastidas/" target="_blank" rel="noopener">Fernando Herrera</a>
-      <span class="eng-city"> · CDMX</span>
-    </div>
-    <div>
-      <a class="eng" href="https://www.instagram.com/aural_trace/" target="_blank" rel="noopener">Manuel Ortúzar</a>
-      <span class="eng-city"> · BLN</span>
+      <a class="person" href="https://www.instagram.com/fernandoherrerabastidas/" target="_blank" rel="noopener">Fernando Herrera<span class="city"> · CDMX</span></a>
+      <a class="person" href="https://www.instagram.com/aural_trace/" target="_blank" rel="noopener">Manuel Ortúzar<span class="city"> · BLN</span></a>
     </div>
   </div>
-
-  <div class="formats">.wav · .aiff · .flac</div>
-
-  <div class="cta-text">Escríbenos para agendar o recibir info.</div>
-
-  <a class="email" href="mailto:contacto@estudionegro.io">
-    contacto@estudionegro.io
-  </a>
 
 </div>
 
