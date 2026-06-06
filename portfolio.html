@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PORTAFOLIO — ESTUDIONEGRO MASTERS</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html,body { background:#fff; color:#000; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; }
+
+    /* ── top bar ── */
+    .topbar {
+      display:flex; align-items:baseline; justify-content:space-between;
+      padding:16px 16px 12px;
+      border-bottom:2px solid #000;
+      position:sticky; top:0; background:#fff; z-index:10;
+    }
+    @media(min-width:600px){ .topbar { padding:18px 26px 12px; } }
+    .back {
+      font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
+      letter-spacing:-0.02em; color:#000; text-decoration:none;
+      display:inline-block; transform:scaleX(0.96); transform-origin:left center;
+    }
+    .back:hover { opacity:0.4; }
+    .page-title {
+      font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
+      letter-spacing:-0.02em; display:inline-block;
+      transform:scaleX(0.96); transform-origin:right center;
+    }
+
+    /* ── cover grid ── */
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:2px;
+    }
+    @media(min-width:500px){ .grid { grid-template-columns:repeat(4,1fr); } }
+    @media(min-width:800px){ .grid { grid-template-columns:repeat(6,1fr); } }
+    @media(min-width:1100px){ .grid { grid-template-columns:repeat(8,1fr); } }
+
+    .cover-item {
+      aspect-ratio:1;
+      overflow:hidden;
+      background:#111;
+      position:relative;
+      cursor:default;
+    }
+    .cover-item img {
+      width:100%; height:100%;
+      object-fit:cover; display:block;
+      transition:transform 0.3s ease;
+    }
+    .cover-item:hover img { transform:scale(1.04); }
+
+    /* hover label */
+    .cover-label {
+      position:absolute; inset:0;
+      background:rgba(0,0,0,0.72);
+      display:flex; flex-direction:column;
+      align-items:flex-start; justify-content:flex-end;
+      padding:8px;
+      opacity:0; transition:opacity 0.2s ease;
+    }
+    .cover-item:hover .cover-label { opacity:1; }
+    .cover-label .cl-artist {
+      font-size:clamp(0.55rem,1.2vw,0.72rem);
+      font-weight:700; color:#fff;
+      line-height:1.2; letter-spacing:-0.01em;
+    }
+    .cover-label .cl-track {
+      font-size:clamp(0.5rem,1vw,0.62rem);
+      font-weight:400; color:rgba(255,255,255,0.65);
+      line-height:1.2; margin-top:2px;
+    }
+
+    /* ── sub-nav ── */
+    .subnav {
+      border-top:2px solid #000;
+      display:flex;
+    }
+    .subnav a {
+      flex:1;
+      display:flex; flex-direction:column; align-items:flex-start;
+      padding:20px 16px 22px;
+      text-decoration:none; color:#000;
+      border-right:1px solid #000;
+      transition:background 0.15s;
+    }
+    @media(min-width:600px){ .subnav a { padding:24px 26px 28px; } }
+    .subnav a:last-child { border-right:none; }
+    .subnav a:hover { background:#f5f5f5; }
+    .sn-label {
+      font-size:0.58rem; letter-spacing:0.2em; color:#aaa;
+      font-weight:400; margin-bottom:8px; text-transform:uppercase;
+    }
+    .sn-title {
+      font-weight:900;
+      font-size:clamp(1.6rem,5vw,3.5rem);
+      letter-spacing:-0.02em; line-height:0.9;
+      display:inline-block;
+      transform:scaleX(0.96); transform-origin:left center;
+    }
+    .sn-desc {
+      font-size:0.65rem; color:#888; margin-top:10px;
+      letter-spacing:0.02em; line-height:1.5;
+      font-weight:400;
+    }
+    .sn-arrow { font-size:1.2rem; margin-left:4px; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back" href="index.html">← ESTUDIONEGRO MASTERS</a>
+  <span class="page-title">PORTAFOLIO</span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="subnav">
+  <a href="archivo.html">
+    <span class="sn-label">catálogo reciente</span>
+    <span class="sn-title">MASTERS</span>
+    <span class="sn-desc">112 masterizaciones · 2020—2026</span>
+  </a>
+  <a href="https://notion.so" target="_blank" rel="noopener">
+    <!-- reemplaza el href con la URL de tu Notion -->
+    <span class="sn-label">historia completa</span>
+    <span class="sn-title">MASTERS LEGACY <span class="sn-arrow">↗</span></span>
+    <span class="sn-desc">Archivo completo desde 2009</span>
+  </a>
+</div>
+
+<script>
+/* Covers ordenadas: artistas más conocidos primero, resto cronológico */
+var COVERS = [
+  {"a":"Kings of Convenience","t":"Peace or Love","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-13.jpg"},
+  {"a":"Gepe","t":"Fe","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-13.jpg"},
+  {"a":"Gepe","t":"Cap. 7: Liturgia","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-12.jpg"},
+  {"a":"Gepe","t":"Rimas pa seducir","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-11.jpg"},
+  {"a":"Gepe","t":"(un poco + de) FE","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-22.21.00.jpg"},
+  {"a":"Camila Moreno","t":"La primera luz","i":"https://estudionegro.io/cms/wp-content/uploads/camila.webp"},
+  {"a":"Camila Moreno","t":"Fuga","i":"https://estudionegro.io/cms/wp-content/uploads/Fuga.webp"},
+  {"a":"Camila Moreno","t":"Vapor","i":"https://estudionegro.io/cms/wp-content/uploads/vapor.webp"},
+  {"a":"Pedropiedra","t":"Estado Vegetal","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.17.43.jpg"},
+  {"a":"Pedropiedra","t":"Sonámbulo","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-21.jpg"},
+  {"a":"Pedropiedra, Cancamusa","t":"Noches Perdidas","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.21.52.jpg"},
+  {"a":"Fármacos","t":"Me dices amigo","i":"https://estudionegro.io/cms/wp-content/uploads/ab67616d0000b2735d706a08f26afae8fb95bec6.jpeg"},
+  {"a":"Fármacos","t":"Cuarto","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-5.webp"},
+  {"a":"Fármacos","t":"Humedad","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-4.jpg"},
+  {"a":"Fármacos","t":"Oler a ti","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-48.jpg"},
+  {"a":"Fármacos","t":"Que Nunca Pare","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.24.49.jpg"},
+  {"a":"Marineros","t":"Al calor de un sol que acaba de morir","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-46.jpg"},
+  {"a":"Marineros","t":"Al calor de un sol que acaba de morir (Vinilo)","i":"https://estudionegro.io/cms/wp-content/uploads/marineros-vinilo.png"},
+  {"a":"Francisco Victoria","t":"Herida (Deluxe)","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-9.webp"},
+  {"a":"Paco Miranda, RENEE","t":"Despedida","i":"https://estudionegro.io/cms/wp-content/uploads/paco.webp"},
+  {"a":"Paco Miranda","t":"REI","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.11.27.jpg"},
+  {"a":"Paco Miranda","t":"SOLAMENTE TÚ....","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb.webp"},
+  {"a":"Paco Miranda","t":"LATIENDO ♡","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-5-1.webp"},
+  {"a":"Paco Miranda","t":"Al Borde del Abismo","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.05.05.jpg"},
+  {"a":"Paco Miranda","t":"Yaoi","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.14.31.jpg"},
+  {"a":"Paco Miranda","t":"Aún en mi mente","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-29.jpg"},
+  {"a":"Yorka","t":"Chao","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-28.jpg"},
+  {"a":"Yorka","t":"La Torpeza","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.11.27.jpg"},
+  {"a":"Yorka","t":"Mira Niñita","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-24.jpg"},
+  {"a":"Yorka","t":"Viento","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-23.jpg"},
+  {"a":"Yorka","t":"Volar","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.16.45.jpg"},
+  {"a":"Yorka","t":"Chao (Vinilo)","i":"https://estudionegro.io/cms/wp-content/uploads/yorka-vinilo.png"},
+  {"a":"Yorka","t":"Viento (acústico)","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-27.jpg"},
+  {"a":"Yorka y Nicole","t":"Mentí (acústico)","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-3.jpg"},
+  {"a":"Shirel","t":"Oxígeno","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1-2.webp"},
+  {"a":"Shirel","t":"Cristal","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-33.jpg"},
+  {"a":"Shirel","t":"TYF","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-22.jpg"},
+  {"a":"Shirel","t":"Romper Platos","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.20.35.jpg"},
+  {"a":"Shirel","t":"Duele","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-9.jpg"},
+  {"a":"Shirel","t":"Papi no me hagas llorar","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-20.jpg"},
+  {"a":"Shirel","t":"Otra Mujer","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-40.jpg"},
+  {"a":"Shirel","t":"Te solté","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.14.15.jpg"},
+  {"a":"Shirel","t":"Libre Albedrío","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.23.03.jpg"},
+  {"a":"PUERTO DOMINGO","t":"Aki","i":"https://estudionegro.io/cms/wp-content/uploads/PUERTO-DOMINGO-Aki-Caratula.jpg"},
+  {"a":"PUERTO DOMINGO","t":"3","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.22.24.jpg"},
+  {"a":"PUERTO DOMINGO","t":"STOP","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.27.22.jpg"},
+  {"a":"PUERTO DOMINGO","t":"Octubre sin ti","i":"https://estudionegro.io/cms/wp-content/uploads/images.jpeg"},
+  {"a":"PUERTO DOMINGO","t":"6delamañana feat. pau","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-6-1.webp"},
+  {"a":"Solar","t":"Los Bailes","i":"https://estudionegro.io/cms/wp-content/uploads/Los-Bailes.jpg"},
+  {"a":"Solar","t":"Acuerdo","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-21.49.53.jpg"},
+  {"a":"Belencha","t":"Belencha","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-7.jpg"},
+  {"a":"Belencha","t":"Belencha en MAVI","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-8.jpg"},
+  {"a":"Belencha","t":"Petronila","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-18.jpg"},
+  {"a":"Glup!","t":"Una cuncuna","i":"https://estudionegro.io/cms/wp-content/uploads/glup.webp"},
+  {"a":"Glup!","t":"Me cuesta tanto olvidarte","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-45.jpg"},
+  {"a":"Glup!","t":"Dancing Queen Karaoke Club","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-52.jpg"},
+  {"a":"Lucas Piraino","t":"Se está gastando","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-3-1.webp"},
+  {"a":"Lucas Piraino","t":"Cinco Minutos","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-5.jpg"},
+  {"a":"Lucas Piraino","t":"Amazonas","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-25.jpg"},
+  {"a":"Tololo","t":"Carrusel","i":"https://estudionegro.io/cms/wp-content/uploads/37343.jpg"},
+  {"a":"Tololo","t":"San Felipe","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-10.jpg"},
+  {"a":"Prehistöricos","t":"Telepatía","i":"https://estudionegro.io/cms/wp-content/uploads/prehistoricos.webp"},
+  {"a":"Adri Stuven","t":"Azul (de mar)","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1-1.webp"},
+  {"a":"Adri Stuven","t":"Amanecer","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-23.28.24.jpg"},
+  {"a":"Emilia Borlone","t":"Solita Yo","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.19.25.jpg"},
+  {"a":"Emilia Borlone","t":"Pasado Ideal","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.31.18.jpg"},
+  {"a":"Fil Uno","t":"Suite Nipples","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-4-1.webp"},
+  {"a":"Fil Uno","t":"Pájaro Herido","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.29.50.jpg"},
+  {"a":"Hakanna","t":"Veinte","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-1.jpg"},
+  {"a":"Begoña Ortúzar","t":"Rayo verde","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-6.jpg"},
+  {"a":"Tormenta","t":"Te Lloraría una Tarde","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-22.59.00.jpg"},
+  {"a":"Christianes","t":"Ultrasol (Remasterizado 2023)","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.18.12.jpg"},
+  {"a":"Bastti","t":"Amor de verano","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-44.jpg"},
+  {"a":"Bastti","t":"Estrellas","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-49.jpg"},
+  {"a":"Amún","t":"Incógnita","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-36.jpg"},
+  {"a":"Amún","t":"Estrellas del lugar","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-31.jpg"},
+  {"a":"Amún","t":"Lo que llevas","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-32.jpg"},
+  {"a":"Pablo Rojas","t":"To' Estos Giles","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.13.00.jpg"},
+  {"a":"Pablo Rojas","t":"Quiero Tu calor","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1.webp"},
+  {"a":"Max Valdés","t":"Primavera","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-1-3.webp"},
+  {"a":"Alessia","t":"eX","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-6.webp"},
+  {"a":"Alessia","t":"FKU","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-2-1.webp"},
+  {"a":"Cristóbal Gacitúa","t":"Si, Caché","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-22.12.58.jpg"},
+  {"a":"Monasterios","t":"Andrómeda","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-03-a-las-21.57.56.jpg"},
+  {"a":"Paolo Agamio","t":"La perfecta","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-38.jpg"},
+  {"a":"Flangr, Shirel","t":"Lejos","i":"https://estudionegro.io/cms/wp-content/uploads/artworks-Tr9egTqLki7X-0-t500x500.jpg"},
+  {"a":"Nati Sativa","t":"Mariposas","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-14.jpg"},
+  {"a":"Agata Prisma","t":"Te vi","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-26.jpg"},
+  {"a":"Natisú","t":"Amores","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-17.jpg"},
+  {"a":"MARÍA","t":"Magdalena: 2","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-15.jpg"},
+  {"a":"Monitogorila","t":"Monitogorila","i":"https://estudionegro.io/cms/wp-content/uploads/portfolio-16.jpg"},
+  {"a":"lolosuelto","t":"fiesta de amistades","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-8.webp"},
+  {"a":"quediostesalve, NIKOKONT","t":"AGUA II","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-4.webp"},
+  {"a":"Rulo, El Mulu","t":"Versión Errante","i":"https://estudionegro.io/cms/wp-content/uploads/632x632bb-7.webp"},
+  {"a":"Abducción","t":"Teletubi","i":"https://estudionegro.io/cms/wp-content/uploads/Captura-de-pantalla-2024-04-04-a-las-00.23.35.jpg"}
+];
+
+var grid = document.getElementById('grid');
+COVERS.forEach(function(c){
+  var item = document.createElement('div');
+  item.className = 'cover-item';
+  item.innerHTML =
+    '<img src="'+c.i+'" alt="'+c.a+'" loading="lazy">'+
+    '<div class="cover-label">'+
+      '<div class="cl-artist">'+c.a+'</div>'+
+      '<div class="cl-track">'+c.t+'</div>'+
+    '</div>';
+  grid.appendChild(item);
+});
+</script>
+</body>
+</html>
