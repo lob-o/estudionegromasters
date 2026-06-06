@@ -53,16 +53,38 @@
       margin-bottom:12px;
     }
     a.email {
-      display:inline;
+      display:block;
       font-weight:700;
-      font-size:clamp(1.4rem,3.5vw,2.2rem);
+      font-size:clamp(1.8rem,5vw,3.2rem);
       letter-spacing:-0.02em;
       color:#000;
       text-decoration:none;
+      margin-top:8px;
       -webkit-tap-highlight-color:transparent;
       touch-action:manipulation;
     }
     a.email:hover { opacity:0.4; }
+
+    a.whatsapp {
+      display:block;
+      font-weight:700;
+      font-size:clamp(1.8rem,5vw,3.2rem);
+      letter-spacing:-0.02em;
+      color:#000;
+      text-decoration:none;
+      margin-top:4px;
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+    }
+    a.whatsapp:hover { opacity:0.4; }
+
+    .reply {
+      font-weight:700;
+      font-size:clamp(1.4rem,3.5vw,2.2rem);
+      letter-spacing:-0.02em;
+      color:#ccc;
+      margin-top:4px;
+    }
     .team { margin-top:52px; }
     .team-label {
       font-weight:700;
@@ -101,9 +123,11 @@
 <div class="body">
   <p class="intro">Para agendar una sesión, consultar tarifas o recibir más información, escribe a</p>
   <a class="email" href="mailto:contacto@estudionegro.io">contacto@estudionegro.io</a>
-  
+  <a class="whatsapp" href="https://wa.me/56993052682" target="_blank" rel="noopener noreferrer">o por WhatsApp ↗</a>
+  <p class="reply">Respondemos antes de 24 horas.</p>
+
   <div class="team">
-    <div class="team-label">Equipo</div>
+    <div class="team-label">Nuestro equipo</div>
     <a class="person" href="https://www.instagram.com/fernandoherrerabastidas/" target="_blank" rel="noopener noreferrer">
       Fernando Herrera<span class="city"> · CDMX</span>
     </a>
