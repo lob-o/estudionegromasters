@@ -9,64 +9,67 @@
     html, body {
       background:#fff; color:#000;
       font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      -webkit-text-size-adjust:100%; /* evita que iOS infle texto */
     }
 
-    /* topbar — igual que el resto del sitio */
     .topbar {
       display:flex; align-items:baseline; justify-content:space-between;
       padding:16px 16px 12px;
       border-bottom:2px solid #000;
     }
     @media(min-width:600px){ .topbar { padding:18px 26px 12px; } }
+
     .back {
       font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
       letter-spacing:-0.02em; color:#000; text-decoration:none;
-      display:inline-block; transform:scaleX(0.96); transform-origin:left center;
+      display:inline-block;
+      transform:scaleX(0.96); transform-origin:left center;
+      -webkit-tap-highlight-color:transparent;
     }
     .back:hover { opacity:0.4; }
+
     .page-title {
       font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
       letter-spacing:-0.02em;
-      display:inline-block; transform:scaleX(0.96); transform-origin:right center;
+      display:inline-block;
+      transform:scaleX(0.96); transform-origin:right center;
     }
 
-    /* cuerpo */
     .body {
       padding:48px 16px 80px;
       max-width:520px;
     }
     @media(min-width:600px){ .body { padding:56px 26px 80px; } }
 
-    /* bloque 1: cta + email */
     .intro {
-      font-size:0.95rem;
+      font-size:1rem;
       font-weight:400;
       color:#666;
-      line-height:1.65;
-      margin-bottom:10px;
+      line-height:1.6;
+      margin-bottom:12px;
     }
 
     a.email {
-      font-size:0.95rem;
+      display:inline-block; /* tap target más fácil */
+      font-size:1rem;
       font-weight:700;
       color:#000;
       text-decoration:none;
       letter-spacing:-0.01em;
+      padding:4px 0; /* tap target vertical */
+      -webkit-tap-highlight-color:transparent;
     }
     a.email:hover { opacity:0.4; }
 
-    /* bloque 2: equipo */
-    .team {
-      margin-top:48px;
-    }
+    .team { margin-top:48px; }
 
     .team-label {
-      font-size:0.55rem;
+      font-size:0.65rem; /* mínimo legible en todos los browsers */
       font-weight:400;
-      letter-spacing:0.22em;
+      letter-spacing:0.2em;
       color:#aaa;
       text-transform:uppercase;
-      margin-bottom:14px;
+      margin-bottom:16px;
     }
 
     .person {
@@ -77,14 +80,14 @@
       line-height:1.15;
       color:#000;
       text-decoration:none;
+      padding:8px 0; /* tap target 44px aprox en móvil */
+      -webkit-tap-highlight-color:transparent;
     }
     .person:hover { opacity:0.4; }
-    .person + .person { margin-top:2px; }
+    .person + .person { margin-top:0; }
 
     .city {
       font-weight:700;
-      font-size:clamp(1.1rem,2.8vw,1.6rem);
-      letter-spacing:-0.02em;
       color:#ccc;
     }
   </style>
@@ -98,14 +101,18 @@
 
 <div class="body">
 
-  <p class="intro">Para agendar una sesión, consultar tarifas<br>o recibir más información, escribe a:</p>
+  <p class="intro">Para agendar una sesión, consultar tarifas o recibir más información, escribe a:</p>
   <a class="email" href="mailto:contacto@estudionegro.io">contacto@estudionegro.io</a>
 
   <div class="team">
     <div class="team-label">Nuestro equipo</div>
     <div>
-      <a class="person" href="https://www.instagram.com/fernandoherrerabastidas/" target="_blank" rel="noopener">Fernando Herrera<span class="city"> · CDMX</span></a>
-      <a class="person" href="https://www.instagram.com/aural_trace/" target="_blank" rel="noopener">Manuel Ortúzar<span class="city"> · BLN</span></a>
+      <a class="person" href="https://www.instagram.com/fernandoherrerabastidas/" target="_blank" rel="noopener noreferrer">
+        Fernando Herrera<span class="city"> · CDMX</span>
+      </a>
+      <a class="person" href="https://www.instagram.com/aural_trace/" target="_blank" rel="noopener noreferrer">
+        Manuel Ortúzar<span class="city"> · BLN</span>
+      </a>
     </div>
   </div>
 
