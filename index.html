@@ -67,6 +67,7 @@
     .footer {
       flex-shrink:0;
       display:flex; align-items:baseline;
+      justify-content:space-between;
     }
     .nav { display:flex; gap:4vw; }
     .nav a {
@@ -86,6 +87,23 @@
       touch-action:manipulation; /* tap sin delay de 300ms */
     }
     .nav a:hover { opacity:0.28; }
+
+    .nav-right {
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      font-weight:900;
+      font-size:clamp(1.4rem,4.5vw,3.8rem);
+      letter-spacing:-0.02em;
+      color:#000;
+      text-decoration:none;
+      display:inline-block;
+      white-space:nowrap;
+      transform:scaleX(0.96);
+      transform-origin:right center;
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+      transition:opacity 0.15s;
+    }
+    .nav-right:hover { opacity:0.28; }
   </style>
 </head>
 <body>
@@ -110,6 +128,7 @@
       <a href="portfolio.html">PORTAFOLIO</a>
       <a href="agenda.html">AGENDA</a>
     </nav>
+    <a class="nav-right" href="https://app.notion.com/p/f5f1cf1f6e0945bfa12fdb5ca7e2666d?v=3832b71ad82b48b4b73558a4ab5766c1&source=copy_link" target="_blank" rel="noopener noreferrer">LEGACY</a>
   </div>
 
 </div>
