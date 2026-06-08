@@ -132,6 +132,31 @@
       -webkit-tap-highlight-color:transparent;
     }
     .footer-link:hover { opacity:0.4; }
+
+    /* hover credits overlay */
+    .album-cover { position:relative; }
+    .album-credit {
+      position:absolute; inset:0;
+      background:rgba(0,0,0,0.88);
+      display:flex; flex-direction:column; justify-content:flex-end;
+      padding:14px;
+      opacity:0;
+      transition:opacity 0.2s ease;
+      pointer-events:none;
+    }
+    .album-cover:hover .album-credit { opacity:1; }
+    .credit-line {
+      font-size:0.58rem;
+      font-weight:400;
+      letter-spacing:0.08em;
+      color:#aaa;
+      text-transform:uppercase;
+      line-height:1.8;
+    }
+    .credit-line strong {
+      color:#fff;
+      font-weight:700;
+    }
   </style>
 </head>
 <body>
@@ -149,6 +174,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02ee211358d5156a05f41c250a" alt="Esquemas Juveniles" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Javiera Mena</div>
@@ -160,6 +186,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e024a8871695f3ccf3d5a836e94" alt="Mena" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Javiera Mena</div>
@@ -171,6 +198,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e0208380790b68fce084badc3a8" alt="Otra Era" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Javiera Mena</div>
@@ -182,6 +210,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e027fdcbe0c233873b741dbbdbb" alt="Primeras Composiciones" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Javiera Mena</div>
@@ -194,6 +223,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e0217ad78d648ec56afd84fa710" alt="GP" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Gepe</div>
@@ -205,6 +235,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02ed0b4828bc67a4795045dc55" alt="Estilo Libre" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Gepe</div>
@@ -216,6 +247,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e020b44aac6b793e06883591cee" alt="Ciencia Exacta" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Gepe</div>
@@ -227,6 +259,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02c052824669be51412dd90d35" alt="Folclor Imaginario" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Gepe</div>
@@ -239,6 +272,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02142df0648de340b4d94d1813" alt="Rebeldes" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Alex Anwandter</div>
@@ -251,6 +285,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02024e9d35cd8dc29f35eb9ed8" alt="Panal" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Camila Moreno</div>
@@ -263,6 +298,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02a276e8c2ddb54a1ba0001f60" alt="Música Gramática Gimnasia" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Dënver</div>
@@ -275,6 +311,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02e1dc38652b7ac22c83d33cd7" alt="Se Caiga el Cielo" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Electrodomésticos</div>
@@ -287,6 +324,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e023c1b5abb8dc32a8c566692e3" alt="Panal" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Nicole</div>
@@ -299,6 +337,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02b6833b988f9de132f0c09519" alt="Audiovisión" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Gepe</div>
@@ -311,6 +350,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02418e3dfc602da73cfe1fc141" alt="Nuevo Sol" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Fernando Milagros</div>
@@ -323,6 +363,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02574ea448680645db11b6aae3" alt="O Marineros" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Manuel Ortúzar · Estudionegro BLN</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Marineros</div>
@@ -335,6 +376,7 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e02f97d4da1c21eaacb755763e4" alt="Pérdida Total" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Manuel Ortúzar · Estudionegro BLN</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Tololo</div>
@@ -346,7 +388,8 @@
   <!-- Pedropiedra -->
   <div class="album">
     <div class="album-cover">
-      <img src="https://i.scdn.co/image/ab67616d00001e02dbb1c72a6d1ad428d59e608b" alt="Alô" loading="lazy">
+      <img src="https://i.scdn.co/image/ab67616d00001e02f4457895804b931aa48f8b99" alt="Alô" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>estudionegro</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Pedropiedra</div>
@@ -359,11 +402,24 @@
   <div class="album">
     <div class="album-cover">
       <img src="https://i.scdn.co/image/ab67616d00001e020cfef9b5682f06149af2f10d" alt="Peace or Love" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Manuel Ortúzar · Estudionegro BLN</span></div>
     </div>
     <div class="album-info">
       <div class="album-artist">Kings of Convenience</div>
       <div class="album-title">Peace or Love</div>
       <div class="album-year">2021</div>
+    </div>
+  </div>
+  <!-- Fernando Milagros -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02e951a4767cf3abd26751cabf" alt="San Sebastián" loading="lazy">
+      <div class="album-credit"><span class="credit-line"><strong>Masterización</strong><br>Fernando Herrera Bastidas · Estudionegro CDMX</span></div>
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Fernando Milagros</div>
+      <div class="album-title">San Sebastián</div>
+      <div class="album-year">2015</div>
     </div>
   </div>
 
@@ -372,7 +428,7 @@
 <div class="footer">
   <div class="footer-label">Archivo completo</div>
   <a class="footer-link" href="https://app.notion.com/p/f5f1cf1f6e0945bfa12fdb5ca7e2666d?v=3832b71ad82b48b4b73558a4ab5766c1&source=copy_link" target="_blank" rel="noopener noreferrer">
-    Estudionegro Legacy Archive ↗
+    Estudionegro Full Legacy Archive ↗
   </a>
 </div>
 
