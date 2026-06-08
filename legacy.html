@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>LEGACY — ESTUDIONEGRO MASTERS</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html {
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
+    html, body {
+      background:#000; color:#fff;
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+    /* topbar — blanco sobre negro */
+    .topbar {
+      display:flex; align-items:baseline; justify-content:space-between;
+      padding:16px 16px 12px;
+      border-bottom:2px solid #fff;
+    }
+    @media(min-width:600px){ .topbar { padding:18px 26px 12px; } }
+    .back {
+      font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
+      letter-spacing:-0.02em; color:#fff; text-decoration:none;
+      display:inline-block;
+      transform:scaleX(0.96); transform-origin:left center;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .back:hover { opacity:0.4; }
+    .page-title {
+      font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem);
+      letter-spacing:-0.02em; color:#fff;
+      display:inline-block;
+      transform:scaleX(0.96); transform-origin:right center;
+    }
+
+    /* subtitle */
+    .subtitle {
+      padding:20px 16px 0;
+      font-size:0.6rem;
+      font-weight:400;
+      letter-spacing:0.2em;
+      color:#555;
+      text-transform:uppercase;
+    }
+    @media(min-width:600px){ .subtitle { padding:22px 26px 0; } }
+
+    /* grid */
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:1px;
+      margin-top:1px;
+      background:#111;
+    }
+    @media(min-width:500px){ .grid { grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:900px){ .grid { grid-template-columns:repeat(4,1fr); } }
+
+    .album {
+      background:#000;
+      display:flex; flex-direction:column;
+    }
+
+    .album-cover {
+      aspect-ratio:1;
+      overflow:hidden;
+      background:#111;
+    }
+    .album-cover img {
+      width:100%; height:100%;
+      object-fit:cover; display:block;
+      transition:opacity 0.3s;
+      filter:grayscale(15%);
+    }
+    .album:hover .album-cover img { opacity:0.7; }
+
+    .album-info {
+      padding:14px 14px 20px;
+      flex:1;
+    }
+    @media(min-width:600px){ .album-info { padding:16px 16px 24px; } }
+
+    .album-artist {
+      font-weight:900;
+      font-size:clamp(0.85rem,2.5vw,1.1rem);
+      letter-spacing:-0.02em;
+      line-height:1.1;
+      color:#fff;
+    }
+    .album-title {
+      font-weight:400;
+      font-size:clamp(0.75rem,2vw,0.9rem);
+      letter-spacing:-0.01em;
+      color:#666;
+      margin-top:4px;
+      line-height:1.3;
+    }
+    .album-year {
+      font-size:0.55rem;
+      letter-spacing:0.12em;
+      color:#444;
+      text-transform:uppercase;
+      margin-top:8px;
+    }
+
+    /* footer */
+    .footer {
+      padding:40px 16px 60px;
+      border-top:1px solid #222;
+      margin-top:1px;
+    }
+    @media(min-width:600px){ .footer { padding:40px 26px 80px; } }
+    .footer-label {
+      font-size:0.58rem;
+      letter-spacing:0.2em;
+      color:#444;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .footer-link {
+      font-weight:900;
+      font-size:clamp(1rem,3vw,1.8rem);
+      letter-spacing:-0.02em;
+      color:#fff;
+      text-decoration:none;
+      display:inline-block;
+      transform:scaleX(0.96); transform-origin:left center;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .footer-link:hover { opacity:0.4; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back" href="index.html">← ESTUDIONEGRO MASTERS</a>
+  <span class="page-title">LEGACY</span>
+</div>
+
+<div class="subtitle">Estudionegro Masters · 2009—2019</div>
+
+<div class="grid">
+
+  <!-- Javiera Mena -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02ee211358d5156a05f41c250a" alt="Esquemas Juveniles" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Javiera Mena</div>
+      <div class="album-title">Esquemas Juveniles</div>
+      <div class="album-year">2006</div>
+    </div>
+  </div>
+
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e024a8871695f3ccf3d5a836e94" alt="Mena" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Javiera Mena</div>
+      <div class="album-title">Mena</div>
+      <div class="album-year">2011</div>
+    </div>
+  </div>
+
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e0208380790b68fce084badc3a8" alt="Otra Era" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Javiera Mena</div>
+      <div class="album-title">Otra Era</div>
+      <div class="album-year">2015</div>
+    </div>
+  </div>
+
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e027fdcbe0c233873b741dbbdbb" alt="Primeras Composiciones" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Javiera Mena</div>
+      <div class="album-title">Primeras Composiciones 2000–2003</div>
+      <div class="album-year">2013</div>
+    </div>
+  </div>
+
+  <!-- Gepe -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e0217ad78d648ec56afd84fa710" alt="GP" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Gepe</div>
+      <div class="album-title">GP</div>
+      <div class="album-year">2006</div>
+    </div>
+  </div>
+
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02ed0b4828bc67a4795045dc55" alt="Estilo Libre" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Gepe</div>
+      <div class="album-title">Estilo Libre</div>
+      <div class="album-year">2009</div>
+    </div>
+  </div>
+
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e020b44aac6b793e06883591cee" alt="Ciencia Exacta" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Gepe</div>
+      <div class="album-title">Ciencia Exacta</div>
+      <div class="album-year">2011</div>
+    </div>
+  </div>
+
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02c052824669be51412dd90d35" alt="Folclor Imaginario" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Gepe</div>
+      <div class="album-title">Folclor Imaginario</div>
+      <div class="album-year">2013</div>
+    </div>
+  </div>
+
+  <!-- Alex Anwandter -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02142df0648de340b4d94d1813" alt="Rebeldes" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Alex Anwandter</div>
+      <div class="album-title">Rebeldes</div>
+      <div class="album-year">2012</div>
+    </div>
+  </div>
+
+  <!-- Camila Moreno -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02024e9d35cd8dc29f35eb9ed8" alt="Panal" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Camila Moreno</div>
+      <div class="album-title">Panal</div>
+      <div class="album-year">2011</div>
+    </div>
+  </div>
+
+  <!-- Dënver -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02a276e8c2ddb54a1ba0001f60" alt="Música Gramática Gimnasia" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Dënver</div>
+      <div class="album-title">Música, Gramática, Gimnasia</div>
+      <div class="album-year">2012</div>
+    </div>
+  </div>
+
+  <!-- Electrodomésticos -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e02e1dc38652b7ac22c83d33cd7" alt="Se Caiga el Cielo" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Electrodomésticos</div>
+      <div class="album-title">Se Caiga el Cielo</div>
+      <div class="album-year">2009</div>
+    </div>
+  </div>
+
+  <!-- Nicole -->
+  <div class="album">
+    <div class="album-cover">
+      <img src="https://i.scdn.co/image/ab67616d00001e023c1b5abb8dc32a8c566692e3" alt="Panal" loading="lazy">
+    </div>
+    <div class="album-info">
+      <div class="album-artist">Nicole</div>
+      <div class="album-title">Panal</div>
+      <div class="album-year">2010</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-label">Archivo completo</div>
+  <a class="footer-link" href="https://app.notion.com/p/f5f1cf1f6e0945bfa12fdb5ca7e2666d?v=3832b71ad82b48b4b73558a4ab5766c1&source=copy_link" target="_blank" rel="noopener noreferrer">
+    Estudionegro Legacy Archive ↗
+  </a>
+</div>
+
+</body>
+</html>
