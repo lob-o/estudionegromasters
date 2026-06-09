@@ -286,6 +286,11 @@ document.getElementById('p-hdr').addEventListener('click',function(){
   }
   pList.classList.toggle('open');
   pArrow.classList.toggle('open');
+  if (pList.classList.contains('open')) {
+    setTimeout(function() {
+      document.getElementById('p-hdr').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
 });
 
 // ── film grain ────────────────────────────────────────────────────────────
