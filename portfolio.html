@@ -47,9 +47,9 @@
         flex-direction:column;
         align-items:center;
         justify-content:center;
-        min-height:calc(100vh - 56px);
-        padding:48px 40px;
-        gap:28px;
+        min-height:calc(82vh - 56px);
+        padding:36px 40px 28px;
+        gap:20px;
       }
     }
 
@@ -187,6 +187,35 @@
     <div class="slide-track"  id="slide-track"></div>
     <div class="slide-year"   id="slide-year"></div>
   </div>
+</div>
+
+<style>
+  .scroll-hint {
+    display:none;
+    text-align:center;
+    padding:12px 0 16px;
+    background:#000;
+    border-bottom:2px solid #fff;
+  }
+  @media(min-width:700px){
+    .scroll-hint {
+      display:block;
+    }
+  }
+  .scroll-hint span {
+    font-size:0.6rem;
+    font-weight:700;
+    letter-spacing:0.2em;
+    color:#444;
+    text-transform:uppercase;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .scroll-hint span:hover { color:#888; }
+</style>
+
+<div class="scroll-hint" onclick="document.getElementById('p-hdr').scrollIntoView({behavior:'smooth'})">
+  <span>VER PORTAFOLIO COMPLETO ↓</span>
 </div>
 
 <div class="p-hdr" id="p-hdr">
